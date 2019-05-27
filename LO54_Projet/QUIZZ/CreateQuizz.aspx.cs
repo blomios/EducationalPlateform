@@ -6,11 +6,13 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.QUIZZ
 {
     public partial class WebForm2 : System.Web.UI.Page
     {
+        private bool first;
         private UVDb myUvDb = new UVDb(); 
         private List<UV> linkedUvs = new List<UV>();
         private int questionsCreated;
@@ -32,14 +34,15 @@ namespace LO54_Projet.QUIZZ
                ViewState[VIEWSTATEKEY_DYNCONTROL] = value;
             }
         }
-        private bool create = true;
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
+            //IsPostBack -> On "Recharge" la page, on vient pas d'arriver dessus
             if (!IsPostBack)
             {
-                linkedUvs = myUvDb.getLinkedUvs(User.Identity.Name);
+                ViewState["first"] = Boolean.TrueString;
+                linkedUvs = myUvDb.getLinkedUvs(User.Identity.GetUserId());
                 if (linkedUvs.Count > 0)
                 {
                     RadioButtonList_ChoixUV.Items.Clear();
@@ -49,18 +52,30 @@ namespace LO54_Projet.QUIZZ
                     }
                 }
             }
-            else
+            else // On recharge la page (-> Par exemple en ajoutant une question :D)
             {
-                create = false;
-                questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
-                panel_Questions_Container.Controls.Clear();
-                for (int i = 0; i < questionsCreated; i++)
-                {
-                    createQuestion(i);
-                }
-            }
 
-            
+                string vsFirst = ViewState["first"].ToString();
+                Boolean.TryParse(vsFirst, out first);
+                if (first)
+                {
+                    questionsCreated = 1;
+                }
+                else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
+                ViewState["first"] = Boolean.FalseString;
+                panel_Questions_Container.Controls.Clear();
+                if (questionsCreated > 0) createControls();
+               
+            }
+        }
+
+        private void createControls()
+        {
+            panel_Questions_Container.Controls.Clear();
+            for (int i = 0; i < questionsCreated; i++)
+            {
+                createQuestion(i);
+            }
         }
 
         private void createQuestion(int id)
@@ -82,7 +97,8 @@ namespace LO54_Projet.QUIZZ
             // Ensuite
             // nouvelle textbox
             TextBox t = new TextBox();
-            t.Text = "Some random text just for fun" + id;
+            t.Text = "Some random label just for fun" + id;
+            t.Attributes["value"] = t.Text;
             t.TextMode = TextBoxMode.MultiLine;
             // pour avoir un rendu sympa :)
             t.CssClass = "form-control";
@@ -100,15 +116,22 @@ namespace LO54_Projet.QUIZZ
             // On va créer un autre panel je pense 
             Panel pReps = new Panel();
             pReps.ID = "Reponses_Question"+id;
-
+            pReps.Attributes.CssStyle.Add("margin-top", "5px");
+            pReps.BorderStyle = BorderStyle.Solid;
+            pReps.BorderWidth = 1;
             p.Controls.Add(pReps);
             for (int i = 0; i < 4; i++)
             {
                 TextBox tRep = new TextBox();
                 tRep.Text = "Some random text just for fun rep" + i;
+                tRep.Attributes["value"] = tRep.Text;
                 tRep.TextMode = TextBoxMode.MultiLine;
                 // pour avoir un rendu sympa :)
                 tRep.CssClass = "form-control";
+                tRep.Attributes.CssStyle.Add("margin-left", "5px");
+                tRep.Attributes.CssStyle.Add("margin-bottom", "5px");
+                tRep.Attributes.CssStyle.Add("margin-right", "5px");
+                tRep.Attributes.CssStyle.Add("margin-top", "5px");
 
                 tRep.ID = "TextBox_Question_Reponse" + id +"_"+i;
                 pReps.Controls.Add(tRep);
@@ -121,9 +144,20 @@ namespace LO54_Projet.QUIZZ
             // cest une nouvelle question
             questionsCreated++;
 
-            createQuestion(questionsCreated);
-            
-            ViewState["questionsCreated"] =questionsCreated.ToString();
+            //createQuestion(questionsCreated);
+
+            ViewState["questionsCreated"] = questionsCreated.ToString();
+            foreach (Control ctrl in panel_Questions_Container.Controls)
+            {
+                foreach (Control ct in ctrl.Controls)
+                {
+                    if (ct is TextBox)
+                    {
+                        TextBox mt = (TextBox)ct;
+                        mt.Attributes["value"] = mt.Text;
+                    }
+                }
+            }
         }
     }
 }
