@@ -25,7 +25,7 @@ namespace LO54_Projet
         }
         protected void Button3_Click(object sender, EventArgs e)
         {
-            Server.Transfer("QUIZZ/WebForm1.aspx");
+            Server.Transfer("QUIZZ/CreateQuizz.aspx");
         }
 
         protected void Button2_Click(object sender, EventArgs e)

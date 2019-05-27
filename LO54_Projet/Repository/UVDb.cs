@@ -17,10 +17,16 @@ namespace LO54_Projet.Repository
 
         }
         
-        public List<UV> getLinkedUvs(string userName)
+        public List<UV> getLinkedUvs(string userId)
         {
             List<UV> maListe = UVs.ToList();
-            return maListe.FindAll(u => u.Owner.Equals(userName));
+            string eMail = "";
+            using (var identityDbContext = new IdentityDb())
+            {
+                eMail = identityDbContext.getUserMail(userId);
+            }
+
+            return maListe.FindAll(u => u.Owner.Equals(eMail));
         }
     }
 }

@@ -19,8 +19,12 @@ namespace LO54_Projet.UVS
         {
             if (Page.IsValid)
             {
-                var context = new UVDb(); // Uv db c'est la classe qui correspond à la table en bd
-                var uv = new UV(Denomination.Text, Description.Text,User.Identity.GetUserName()); // On créé une nouvelle UV
+                var context = new UVDb(); // Uv db c'est la classe qui correspond à la table en bd 
+                UV uv = new UV();
+                using (var identityDbContext = new IdentityDb())
+                {
+                    uv = new UV(Denomination.Text, Description.Text, identityDbContext.getUserMail(User.Identity.GetUserId())); // On créé une nouvelle UV
+                }
 
                 if (context.UVs.Any(o => o.Denomination == Denomination.Text))
                 {

@@ -18,6 +18,17 @@ namespace LO54_Projet.Repository
         {
             return new IdentityDb();
         }
+
+        /// <summary>
+        /// Get a User's mail throught it's ID
+        /// </summary>
+        /// <param name="userId">The user ID</param>
+        /// <returns>A string corresponding to the mail</returns>
+        public string getUserMail(string userId)
+        {
+            return this.Users.FirstOrDefault(u => u.Id == userId).Email;
+        }
+        
         
     }
 }

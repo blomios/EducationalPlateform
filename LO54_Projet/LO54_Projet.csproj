@@ -231,6 +231,10 @@
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Admin\Administration.aspx" />
+    <Content Include="App_Data\TestReel.mdf" />
+    <Content Include="App_Data\TestReel_log.ldf">
+      <DependentUpon>TestReel.mdf</DependentUpon>
+    </Content>
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
@@ -444,10 +448,14 @@
       <DependentUpon>201905201526569_create.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\QuestionMigrations\Configuration.cs" />
+    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.cs" />
+    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.Designer.cs">
+      <DependentUpon>201905241545010_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\QuizzMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\UVMigrations\201905011022463_InitialCreate.cs" />
-    <Compile Include="DataContexts\UVMigrations\201905011022463_InitialCreate.Designer.cs">
-      <DependentUpon>201905011022463_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\UVMigrations\201905271439263_Update.cs" />
+    <Compile Include="DataContexts\UVMigrations\201905271439263_Update.Designer.cs">
+      <DependentUpon>201905271439263_Update.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\UVMigrations\Configuration.cs" />
     <Compile Include="Default.aspx.cs">
@@ -568,9 +576,7 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
@@ -601,8 +607,11 @@
     <EmbeddedResource Include="DataContexts\QuestionMigrations\201905201526569_create.resx">
       <DependentUpon>201905201526569_create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\UVMigrations\201905011022463_InitialCreate.resx">
-      <DependentUpon>201905011022463_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\QuizzMigrations\201905241545010_update.resx">
+      <DependentUpon>201905241545010_update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\UVMigrations\201905271439263_Update.resx">
+      <DependentUpon>201905271439263_Update.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\IdentityMigrations\201904261318258_InitialCreate.resx">
       <DependentUpon>201904261318258_InitialCreate.cs</DependentUpon>
@@ -651,7 +660,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50149</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:50149/</IISUrl>
+          <IISUrl>http://localhost:50150/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
