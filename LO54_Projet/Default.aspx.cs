@@ -12,7 +12,17 @@ namespace LO54_Projet
     public partial class _Default : Page
     {
 
-        TotoTableDAO tDAO = new TotoTableDAO();
+        /*
+         * ATTENTION :
+         * 
+         *          SI VOUS VOULEZ REDIRIGER VERS UNE PAGE
+         *          UTILISEZ RESPONSE.REDIRECT  (Et non pas Server.transfer)
+         *          C EST PRIMORDIAL POUR LE MECANISME DE "POSTBACK"
+         *          
+         *          JE VOUS INVITE FORTEMENT A ALLER VOIR : https://docs.microsoft.com/en-us/previous-versions/ms178472(v=vs.140)
+         *          (déso pour le caps lock, mais c est important,
+         *          j'ai passé 2h à essayer de comprendre un pb qui n'existait pas)
+         * * * * * * * * * * * * * * * * * * * * * * * * * */
         protected void Page_Load(object sender, EventArgs e)
         {
 
@@ -25,13 +35,7 @@ namespace LO54_Projet
         }
         protected void Button3_Click(object sender, EventArgs e)
         {
-            Server.Transfer("QUIZZ/CreateQuizz.aspx");
-        }
-
-        protected void Button2_Click(object sender, EventArgs e)
-        {
-            tDAO.deleteToto();
-            refresh();
+            Response.Redirect("QUIZZ/CreateQuizz.aspx");
         }
 
         protected void refresh()

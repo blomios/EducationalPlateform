@@ -36,7 +36,7 @@
 
                     </asp:Panel>
                     <div>
-                        <asp:Button ID="Button_Add" runat="server" BorderStyle="None" CssClass="btn active" Text="+" OnClick="Button_Add_Click" CausesValidation="False" EnableViewState="False" />
+                        <asp:Button ID="Button_Add" runat="server" BorderStyle="None" AutoPostBack="true" OnClientClick="Button_Add_Click" CssClass="btn active" Text="+" UseSubmitBehavior="true"  OnClick="Button_Add_Click" CausesValidation="False" EnableViewState="True" />
                     </div>
                
                 </div>

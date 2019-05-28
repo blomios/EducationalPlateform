@@ -13,7 +13,7 @@ namespace LO54_Projet.QUIZZ
     public partial class WebForm2 : System.Web.UI.Page
     {
         private bool first;
-        private UVDb myUvDb = new UVDb(); 
+        private UVDb myUvDb = new UVDb();
         private List<UV> linkedUvs = new List<UV>();
         private int questionsCreated;
         const string VIEWSTATEKEY_DYNCONTROL = "DynamicControlSelection";
@@ -28,44 +28,55 @@ namespace LO54_Projet.QUIZZ
                     return string.Empty;
                 else
                     return result;
-            } 
+            }
             set
             {
-               ViewState[VIEWSTATEKEY_DYNCONTROL] = value;
+                ViewState[VIEWSTATEKEY_DYNCONTROL] = value;
             }
         }
+      
 
-        protected void Page_Load(object sender, EventArgs e)
+     
+        protected void Page_Load(object sender, EventArgs e) 
         {
 
-            //IsPostBack -> On "Recharge" la page, on vient pas d'arriver dessus
-            if (!IsPostBack)
+            if (!IsPostBack) // la page ne se recharge pas
             {
-                ViewState["first"] = Boolean.TrueString;
-                linkedUvs = myUvDb.getLinkedUvs(User.Identity.GetUserId());
-                if (linkedUvs.Count > 0)
-                {
-                    RadioButtonList_ChoixUV.Items.Clear();
-                    foreach (UV u in linkedUvs)
-                    {
-                        RadioButtonList_ChoixUV.Items.Add(u.Denomination);
-                    }
-                }
+                init();
             }
-            else // On recharge la page (-> Par exemple en ajoutant une question :D)
+            else // la page se recharge
             {
+                makePostBackControls();              
+            }
 
-                string vsFirst = ViewState["first"].ToString();
-                Boolean.TryParse(vsFirst, out first);
-                if (first)
+
+        }
+
+        private void makePostBackControls()
+        {
+            string vsFirst = ViewState["first"].ToString();
+            Boolean.TryParse(vsFirst, out first);
+            if (first)
+            {
+                questionsCreated = 1;
+            }
+            else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
+            ViewState["first"] = Boolean.FalseString;
+            if (questionsCreated > 0) createControls();
+            
+        }
+
+        private void init()
+        {
+            ViewState["first"] = Boolean.TrueString;
+            linkedUvs = myUvDb.getLinkedUvs(User.Identity.GetUserId());
+            if (linkedUvs.Count > 0)
+            {
+                RadioButtonList_ChoixUV.Items.Clear();
+                foreach (UV u in linkedUvs)
                 {
-                    questionsCreated = 1;
+                    RadioButtonList_ChoixUV.Items.Add(u.Denomination);
                 }
-                else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
-                ViewState["first"] = Boolean.FalseString;
-                panel_Questions_Container.Controls.Clear();
-                if (questionsCreated > 0) createControls();
-               
             }
         }
 
@@ -91,19 +102,21 @@ namespace LO54_Projet.QUIZZ
             // on pourrait aussi mettre un placeholder dans la textbox, c est comme vous le sentez
             Label l = new Label();
             l.ID = "Label_Question_" + id;
-            l.Text = "Enonce "+id;
+            l.Text = "Enonce " + id;
             p.Controls.Add(l);
 
             // Ensuite
             // nouvelle textbox
             TextBox t = new TextBox();
-            t.Text = "Some random label just for fun" + id;
+            t.Text = "Some random text just for fun" + id;
             t.Attributes["value"] = t.Text;
             t.TextMode = TextBoxMode.MultiLine;
             // pour avoir un rendu sympa :)
             t.CssClass = "form-control";
 
             t.ID = "TextBox_Question" + id;
+            //t.EnableViewState = false;
+            //t.ViewStateMode = ViewStateMode.Disabled;
 
             /*
                         < asp:RequiredFieldValidator runat = "server" ControlToValidate = "QuizzName"
@@ -115,10 +128,8 @@ namespace LO54_Projet.QUIZZ
             // ENSUITE, réponses :D
             // On va créer un autre panel je pense 
             Panel pReps = new Panel();
-            pReps.ID = "Reponses_Question"+id;
-            pReps.Attributes.CssStyle.Add("margin-top", "5px");
-            pReps.BorderStyle = BorderStyle.Solid;
-            pReps.BorderWidth = 1;
+            pReps.ID = "Reponses_Question" + id;
+
             p.Controls.Add(pReps);
             for (int i = 0; i < 4; i++)
             {
@@ -128,12 +139,10 @@ namespace LO54_Projet.QUIZZ
                 tRep.TextMode = TextBoxMode.MultiLine;
                 // pour avoir un rendu sympa :)
                 tRep.CssClass = "form-control";
-                tRep.Attributes.CssStyle.Add("margin-left", "5px");
-                tRep.Attributes.CssStyle.Add("margin-bottom", "5px");
-                tRep.Attributes.CssStyle.Add("margin-right", "5px");
-                tRep.Attributes.CssStyle.Add("margin-top", "5px");
 
-                tRep.ID = "TextBox_Question_Reponse" + id +"_"+i;
+                tRep.ID = "TextBox_Question_Reponse" + id + "_" + i;
+                //tRep.EnableViewState = false;
+                //tRep.ViewStateMode = ViewStateMode.Disabled;
                 pReps.Controls.Add(tRep);
             }
 
