@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
+using System.Text;
 
 namespace LO54_Projet.QUIZZ
 {
@@ -58,7 +59,7 @@ namespace LO54_Projet.QUIZZ
             Boolean.TryParse(vsFirst, out first);
             if (first)
             {
-                questionsCreated = 1;
+                questionsCreated =0;
             }
             else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
             ViewState["first"] = Boolean.FalseString;
@@ -102,7 +103,7 @@ namespace LO54_Projet.QUIZZ
             // on pourrait aussi mettre un placeholder dans la textbox, c est comme vous le sentez
             Label l = new Label();
             l.ID = "Label_Question_" + id;
-            l.Text = "Enonce " + id;
+            l.Text = "Enonce " + id+1;
             p.Controls.Add(l);
 
             // Ensuite
@@ -128,34 +129,100 @@ namespace LO54_Projet.QUIZZ
             // ENSUITE, réponses :D
             // On va créer un autre panel je pense 
             Panel pReps = new Panel();
-            pReps.ID = "Reponses_Question" + id;
+            pReps.ID = "Reponses_Question_" + id;
+            pReps.BorderStyle = BorderStyle.Solid;
+            pReps.BorderWidth = 1;
+            
 
+            /* On créée au moins un champ de réponse*/
             p.Controls.Add(pReps);
+
+
+            /*
+             
+            TextBox tRep = new TextBox();
+            tRep.Text = "Some random text just for fun rep" + 0;
+            tRep.Attributes["value"] = tRep.Text;
+            tRep.TextMode = TextBoxMode.MultiLine;
+            // pour avoir un rendu sympa :)
+            tRep.CssClass = "form-control";
+
+            tRep.ID = "TextBox_Question_Reponse_" + id + "_" + 0;
+
+            //tRep.EnableViewState = false;
+            //tRep.ViewStateMode = ViewStateMode.Disabled;
+            pReps.Controls.Add(tRep);
+            */
+
+            // on va créer 4 champs de réponse
+            // et en afficher 1, quand l'utilisateur aura cliqué sur + on affichera le second, puis le troisième ... 
+            // On va utiliser le viewState
+            int numberOfRepsToBeShown = -1;
+            int.TryParse(ViewState["reponseQuestion" + id.ToString()].ToString(), out numberOfRepsToBeShown) ;
             for (int i = 0; i < 4; i++)
             {
-                TextBox tRep = new TextBox();
-                tRep.Text = "Some random text just for fun rep" + i;
-                tRep.Attributes["value"] = tRep.Text;
-                tRep.TextMode = TextBoxMode.MultiLine;
-                // pour avoir un rendu sympa :)
-                tRep.CssClass = "form-control";
-
-                tRep.ID = "TextBox_Question_Reponse" + id + "_" + i;
-                //tRep.EnableViewState = false;
-                //tRep.ViewStateMode = ViewStateMode.Disabled;
-                pReps.Controls.Add(tRep);
+                if (i < numberOfRepsToBeShown)
+                {
+                    addAnswer(pReps, id, i, true);
+                }
+                else addAnswer(pReps, id, i, false);
             }
 
+            // Et ensuite, on ajoute un boutton pour ajouter des réponses :D
+            Button addRep = new Button();
+            addRep.CssClass = "btn active";
+            addRep.ID = "btn_addRep_" + id; // l'id de la question
+            addRep.Text = "+";
+            addRep.CausesValidation = false;
+
+            pReps.Controls.Add(addRep);
+            // On va utiliser une autre fonction pourqu'a chaque fois que l'on clique sur le bouton
+            // Un nouveau champ texte apparaisse 
+            addRep.Click += (s,e)=> 
+                    {
+                        Button_Add_Rep_click(pReps);
+                    };
+            // Enfin
+        }
+
+        protected void Button_Add_Rep_click(Panel parent)
+        {
+            string questionID = parent.ID.Substring(18); // id du panel parent
+            int numberOfShownAnswers = -1;
+            string viewStateName = "reponseQuestion" + questionID;
+            int.TryParse(ViewState[viewStateName].ToString(),out numberOfShownAnswers) ;
+            if(numberOfShownAnswers<4) numberOfShownAnswers++;
+            ViewState[viewStateName] = numberOfShownAnswers.ToString();
+            forcePostBack();
+        }
+
+
+        protected void addAnswer(Panel parent,int questionId, int answerId,bool visible)
+        {
+            TextBox tRep = new TextBox();
+            tRep.Text = "Some random text just for fun rep" + answerId;
+            tRep.Attributes["value"] = tRep.Text;
+            tRep.TextMode = TextBoxMode.MultiLine;
+            // pour avoir un rendu sympa :)
+            tRep.CssClass = "form-control";
+
+            tRep.ID = "TextBox_Question_Reponse_" + questionId + "_" + answerId;
+            tRep.EnableViewState = true;
+            tRep.ViewStateMode = ViewStateMode.Enabled;
+            //tRep.EnableViewState = false;
+            //tRep.ViewStateMode = ViewStateMode.Disabled;
+            if (!visible) tRep.Visible = false;
+            parent.Controls.Add(tRep);
         }
 
         protected void Button_Add_Click(object sender, EventArgs e)
         {
             // cest une nouvelle question
             questionsCreated++;
-
-            //createQuestion(questionsCreated);
+            
 
             ViewState["questionsCreated"] = questionsCreated.ToString();
+            ViewState["reponseQuestion" + (questionsCreated-1).ToString()] = 1;
             foreach (Control ctrl in panel_Questions_Container.Controls)
             {
                 foreach (Control ct in ctrl.Controls)
@@ -167,6 +234,20 @@ namespace LO54_Projet.QUIZZ
                     }
                 }
             }
+            forcePostBack();
+        }
+
+        private void forcePostBack()
+        {
+            StringBuilder sbScript = new StringBuilder();
+
+            sbScript.Append("<script language='JavaScript' type='text/javascript'>\n");
+            sbScript.Append("<!--\n");
+            sbScript.Append(GetPostBackEventReference(this, "PBArg") + ";\n");
+            sbScript.Append("// -->\n");
+            sbScript.Append("</script>\n");
+
+            RegisterStartupScript("AutoPostBackScript", sbScript.ToString());
         }
     }
 }
