@@ -247,6 +247,7 @@
     <Content Include="Controllers\AnswereForm.ascx" />
     <Content Include="Controllers\AnswereTypeForm.ascx" />
     <Content Include="Controllers\QuestionQuizzForm.ascx" />
+    <Content Include="Controllers\Uploadfile.ascx" />
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
@@ -433,6 +434,13 @@
     <Compile Include="Controllers\QuestionQuizzForm.ascx.designer.cs">
       <DependentUpon>QuestionQuizzForm.ascx</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Uploadfile.ascx.cs">
+      <DependentUpon>Uploadfile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controllers\Uploadfile.ascx.designer.cs">
+      <DependentUpon>Uploadfile.ascx</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.cs" />
     <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.Designer.cs">
       <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
@@ -576,7 +584,10 @@
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="DataDirectory\" />
+    <Folder Include="Views\Import\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-3.3.1.slim.min.map" />
