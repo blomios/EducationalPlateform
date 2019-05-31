@@ -9,7 +9,7 @@ namespace LO54_Projet.DataContexts.IdentityMigrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             MigrationsDirectory = @"DataContexts\IdentityMigrations";
         }
 
