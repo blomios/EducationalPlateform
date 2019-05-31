@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using LO54_Projet.Entities;
-using LO54_Projet.Repository;
+using LO54_Projet.Services;
 using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.UVS
@@ -15,28 +10,23 @@ namespace LO54_Projet.UVS
     public partial class AddUV : System.Web.UI.Page
     {
 
+        private static UVService uvService = new UVService();
+
         protected void Button_Creer_UV_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                var context = new UVDb(); // Uv db c'est la classe qui correspond à la table en bd 
                 UV uv = new UV();
-                using (var identityDbContext = new IdentityDb())
-                {
-                    uv = new UV(Denomination.Text, Description.Text, identityDbContext.getUserMail(User.Identity.GetUserId())); // On créé une nouvelle UV
-                }
+                uv = new UV(Denomination.Text, Description.Text, User.Identity.GetUserId());
 
-                if (context.UVs.Any(o => o.Denomination == Denomination.Text))
-                {
-                    ErrorMessage.Text = "Cette UV existe déjà !";
-                }
-                else
+                if (uvService.getByDenomination(Denomination.Text) == null)
                 {
                     ErrorMessage.Text = "";
-                    context.UVs.Add(uv); // On l'ajoute à la liste d'uv de UVDB
-                    context.SaveChanges(); // On sauvegarde les changements
+                    uvService.save(uv);
                     RedirectToListUV();
-                }
+                } // else
+
+                ErrorMessage.Text = "Cette UV existe déjà !";
                 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
                 /* ATTENTION :                                                                                     */
                 /*                                                                                                 */

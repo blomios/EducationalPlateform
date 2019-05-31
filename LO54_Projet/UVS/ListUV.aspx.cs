@@ -35,19 +35,23 @@ namespace LO54_Projet.UVS
             //e.Command.Parameters["@UserId"].Value = User.Identity.GetUserId();
         }
 
-        protected bool IsOwner(string owner)
+        protected bool IsOwner(string ownerId)
         {
-            return owner == Context.User.Identity.Name;
+            return ownerId == Context.User.Identity.GetUserId();
         }
 
         protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "Owner").ToString());
+                bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "OwnerId").ToString());
 
+                // edit buton
                 var editButton = (LinkButton)e.Row.Cells[0].Controls[0];
                 editButton.Visible = isOwner;
+
+                // uv detail
+                e.Row.Attributes["onclick"] = ClientScript.GetPostBackClientHyperlink(GridView_UVs, "Select$" + e.Row.RowIndex);
             }
         }
 
@@ -72,6 +76,11 @@ namespace LO54_Projet.UVS
                 " WHERE [Denomination] = '" + oldDenomination + "'";
             SqlDataSource_UVs.Update();
         }
-        
+
+        protected void GridView_UVs_OnSelectedIndexChanged(object sender, EventArgs e)
+        {
+            string uvDenomination = GridView_UVs.Rows[GridView_UVs.SelectedIndex].Cells[1].Text;
+            Response.Redirect("/UVS/DetailUV.aspx?uv=" + uvDenomination, true);
+        }
     }
 }

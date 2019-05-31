@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Création et modifications des UVs" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddUV.aspx.cs" Inherits="LO54_Projet.UVS.AddUV" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <h2><%: Title %>.</h2>
+    <h2><%: Title %></h2>
     <p class="text-danger">
         <asp:Literal runat="server" ID="ErrorMessage" />
     </p>
