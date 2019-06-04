@@ -29,7 +29,7 @@ namespace LO54_Projet.QUIZZ
 
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            Uploadfile1.uv = new UV();
         }
 
 

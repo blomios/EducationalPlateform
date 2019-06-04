@@ -231,9 +231,12 @@
     <Content Include="Account\ResetPassword.aspx" />
     <Content Include="Account\ResetPasswordConfirmation.aspx" />
     <Content Include="Admin\Administration.aspx" />
-    <Content Include="App_Data\TestReel.mdf" />
+    <Content Include="App_Data\TestReel.mdf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="App_Data\TestReel_log.ldf">
       <DependentUpon>TestReel.mdf</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Contact.aspx" />
     <Content Include="Content\bootstrap-grid.css" />
@@ -446,10 +449,7 @@
       <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\AnswereMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201905011023374_InitialCreate.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201905011023374_InitialCreate.Designer.cs">
-      <DependentUpon>201905011023374_InitialCreate.cs</DependentUpon>
-    </Compile>
+    <Compile Include="DataContexts\FileMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="DataContexts\QuestionMigrations\201905201526569_create.cs" />
     <Compile Include="DataContexts\QuestionMigrations\201905201526569_create.Designer.cs">
@@ -475,6 +475,7 @@
     </Compile>
     <Compile Include="Entities\Answere.cs" />
     <Compile Include="Entities\AnswereType.cs" />
+    <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Quizz.cs" />
     <Compile Include="Entities\UV.cs" />
@@ -499,6 +500,7 @@
       <DependentUpon>CreateQuizz.aspx</DependentUpon>
     </Compile>
     <Compile Include="Repository\AnswereDb.cs" />
+    <Compile Include="Repository\FileDb.cs" />
     <Compile Include="Repository\IdentityDb.cs" />
     <Compile Include="Repository\IdentityMigrations\201904261318258_InitialCreate.cs" />
     <Compile Include="Repository\IdentityMigrations\201904261318258_InitialCreate.Designer.cs">
@@ -611,9 +613,6 @@
   <ItemGroup>
     <EmbeddedResource Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.resx">
       <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201905011023374_InitialCreate.resx">
-      <DependentUpon>201905011023374_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\QuestionMigrations\201905201526569_create.resx">
       <DependentUpon>201905201526569_create.cs</DependentUpon>
