@@ -13,7 +13,7 @@ namespace LO54_Projet.QUIZZ
     public partial class WebForm2 : System.Web.UI.Page
     {
         private bool first;
-        private UVDb myUvDb = new UVDb();
+        private UVDb myUvDb = UVDb.GetInstance();
         private List<UV> linkedUvs = new List<UV>();
         private int questionsCreated;
         const string VIEWSTATEKEY_DYNCONTROL = "DynamicControlSelection";
@@ -69,7 +69,7 @@ namespace LO54_Projet.QUIZZ
         private void init()
         {
             ViewState["first"] = Boolean.TrueString;
-            linkedUvs = myUvDb.getLinkedUvs(User.Identity.GetUserId());
+            linkedUvs = myUvDb.GetLinkedUvs(User.Identity.GetUserId());
             if (linkedUvs.Count > 0)
             {
                 RadioButtonList_ChoixUV.Items.Clear();

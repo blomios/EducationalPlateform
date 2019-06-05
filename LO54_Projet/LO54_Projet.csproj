@@ -318,7 +318,7 @@
     <Content Include="Site.Master" />
     <Content Include="UnauthorizedAccess.aspx" />
     <Content Include="UVS\DetailUV.aspx" />
-    <Content Include="UVS\AddUV.aspx" />
+    <Content Include="UVS\FormUV.aspx" />
     <Content Include="UVS\ListUV.aspx" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
@@ -460,6 +460,10 @@
     <Compile Include="DataContexts\UVMigrations\201905271439263_Update.Designer.cs">
       <DependentUpon>201905271439263_Update.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\UVMigrations\201906051158157_AddName.cs" />
+    <Compile Include="DataContexts\UVMigrations\201906051158157_AddName.Designer.cs">
+      <DependentUpon>201906051158157_AddName.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\UVMigrations\Configuration.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -540,7 +544,6 @@
       <DependentUpon>201905061759085_Update 2.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\UVMigrations\Configuration.cs" />
-    <Compile Include="Services\UVService.cs" />
     <Compile Include="Site.Master.cs">
       <DependentUpon>Site.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -572,12 +575,12 @@
     <Compile Include="UVS\DetailUV.aspx.designer.cs">
       <DependentUpon>DetailUV.aspx</DependentUpon>
     </Compile>
-    <Compile Include="UVS\AddUV.aspx.cs">
-      <DependentUpon>AddUV.aspx</DependentUpon>
+    <Compile Include="UVS\FormUV.aspx.cs">
+      <DependentUpon>FormUV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="UVS\AddUV.aspx.designer.cs">
-      <DependentUpon>AddUV.aspx</DependentUpon>
+    <Compile Include="UVS\FormUV.aspx.designer.cs">
+      <DependentUpon>FormUV.aspx</DependentUpon>
     </Compile>
     <Compile Include="UVS\ListUV.aspx.cs">
       <DependentUpon>ListUV.aspx</DependentUpon>
@@ -630,6 +633,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\UVMigrations\201905271439263_Update.resx">
       <DependentUpon>201905271439263_Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\UVMigrations\201906051158157_AddName.resx">
+      <DependentUpon>201906051158157_AddName.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\IdentityMigrations\201904261318258_InitialCreate.resx">
       <DependentUpon>201904261318258_InitialCreate.cs</DependentUpon>

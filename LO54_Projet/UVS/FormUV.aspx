@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Création et modifications des UVs" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="AddUV.aspx.cs" Inherits="LO54_Projet.UVS.AddUV" %>
+﻿<%@ Page Title="Création et modifications des UVs" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="FormUV.aspx.cs" Inherits="LO54_Projet.UVS.FormUV" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
@@ -25,6 +25,20 @@
             </div>
         </div>
         <div class="form-group">
+            <asp:Label runat="server" AssociatedControlID="Name" CssClass="col-md-2 control-label">Name</asp:Label>
+            <div class="col-md-10">
+                <asp:TextBox runat="server" ID="Name" CssClass="form-control"/>
+                <asp:CustomValidator ID="CustomValidator1"
+                    runat="server" 
+                    ErrorMessage="Le nom de L'UV ne peut être vide"
+                    ValidateEmptyText="true"
+                    ControlToValidate="Description" 
+                    OnServerValidate="CustomValidatorDescription_ServerValidate" 
+                    ForeColor="Red"
+                    />
+            </div>
+        </div>
+        <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="Description" CssClass="col-md-2 control-label">Description</asp:Label>
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="Description" CssClass="form-control"  TextMode="MultiLine"/>
@@ -39,7 +53,7 @@
             </div>
         </div>
         <div class="form-group">
-            <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Créer" OnClick="Button_Creer_UV_Click" />
+            <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Enregistrer" OnClick="Button_Creer_UV_Click" />
             <asp:Button ID="Button_Annuler" runat="server" BorderStyle="None" CssClass="btn active" Text="Annuler" OnClick="Button_RedirectToListUV" />
         </div>
     </div>

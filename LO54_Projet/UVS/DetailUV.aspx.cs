@@ -1,5 +1,5 @@
 ﻿using LO54_Projet.Entities;
-using LO54_Projet.Services;
+using LO54_Projet.Repository;
 using System;
 using System.Web;
 
@@ -7,12 +7,13 @@ namespace LO54_Projet.UVS
 {
     public partial class DetailUV : System.Web.UI.Page
     {
-        private static UVService uvService = new UVService();
+        private static UVDb uvContext = UVDb.GetInstance();
+        private static IdentityDb userContext = new IdentityDb();
         private UV cUV;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            cUV = uvService.getByDenomination(Request.Params.Get("uv"));
+            cUV = uvContext.GetByDenomination(Request.Params.Get("uv"));
 
             if (cUV == null)
             {
@@ -20,18 +21,19 @@ namespace LO54_Projet.UVS
             }
             // else
 
-            LB_Denom.Text = cUV.Denomination;
+            Page.Title = cUV.Denomination + ": " + cUV.Name;
+            LB_Owner.Text = userContext.GetUsername(cUV.Owner);
             LB_Desc.Text = cUV.Description;
         }
-
-        private void RedirectToListUV()
+        
+        protected void Button_RedirectToListUV_Click(object sender, EventArgs e)
         {
             Response.Redirect("/UVS/ListUV.aspx", true);
         }
 
-        protected void Button_RedirectToListUV(object sender, EventArgs e)
+        protected void Button_Update_UV_Click(object sender, EventArgs e)
         {
-            RedirectToListUV();
+            Response.Redirect("/UVS/FormUV.aspx?uv=" + cUV.Denomination, true);
         }
     }
 }

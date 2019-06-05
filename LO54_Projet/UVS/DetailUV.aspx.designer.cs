@@ -13,13 +13,22 @@ namespace LO54_Projet.UVS {
     public partial class DetailUV {
         
         /// <summary>
-        /// Contrôle LB_Denom.
+        /// Contrôle Button_Update_UV.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LB_Denom;
+        protected global::System.Web.UI.WebControls.Button Button_Update_UV;
+        
+        /// <summary>
+        /// Contrôle LB_Owner.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label LB_Owner;
         
         /// <summary>
         /// Contrôle LB_Desc.
@@ -29,5 +38,14 @@ namespace LO54_Projet.UVS {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label LB_Desc;
+        
+        /// <summary>
+        /// Contrôle Button_RedirectToListUV.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_RedirectToListUV;
     }
 }

@@ -4,11 +4,13 @@ using System.Linq;
 using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LO54_Projet.Models;
+using System.Web.Providers.Entities;
 
 namespace LO54_Projet.Repository
 {
     public class IdentityDb : IdentityDbContext<ApplicationUser>
     {
+        private static readonly IdentityDb Instance = new IdentityDb();
         public IdentityDb()
             : base("TestReel")
         {
@@ -17,6 +19,16 @@ namespace LO54_Projet.Repository
         public static IdentityDb Create()
         {
             return new IdentityDb();
+        }
+
+        public static IdentityDb GetInstance()
+        {
+            return Instance;
+        }
+
+        public string GetUsername(string id)
+        {
+            return Users.FirstOrDefault(u => u.Id == id).UserName;
         }
 
         /// <summary>
