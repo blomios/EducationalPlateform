@@ -103,7 +103,7 @@ namespace LO54_Projet.QUIZZ
             // on pourrait aussi mettre un placeholder dans la textbox, c est comme vous le sentez
             Label l = new Label();
             l.ID = "Label_Question_" + id;
-            l.Text = "Enonce " + id+1;
+            l.Text = "Enonce " + (id+1);
             p.Controls.Add(l);
 
             // Ensuite
@@ -136,23 +136,7 @@ namespace LO54_Projet.QUIZZ
 
             /* On créée au moins un champ de réponse*/
             p.Controls.Add(pReps);
-
-
-            /*
-             
-            TextBox tRep = new TextBox();
-            tRep.Text = "Some random text just for fun rep" + 0;
-            tRep.Attributes["value"] = tRep.Text;
-            tRep.TextMode = TextBoxMode.MultiLine;
-            // pour avoir un rendu sympa :)
-            tRep.CssClass = "form-control";
-
-            tRep.ID = "TextBox_Question_Reponse_" + id + "_" + 0;
-
-            //tRep.EnableViewState = false;
-            //tRep.ViewStateMode = ViewStateMode.Disabled;
-            pReps.Controls.Add(tRep);
-            */
+            
 
             // on va créer 4 champs de réponse
             // et en afficher 1, quand l'utilisateur aura cliqué sur + on affichera le second, puis le troisième ... 
@@ -175,6 +159,7 @@ namespace LO54_Projet.QUIZZ
             addRep.Text = "+";
             addRep.CausesValidation = false;
 
+
             pReps.Controls.Add(addRep);
             // On va utiliser une autre fonction pourqu'a chaque fois que l'on clique sur le bouton
             // Un nouveau champ texte apparaisse 
@@ -182,6 +167,20 @@ namespace LO54_Projet.QUIZZ
                     {
                         Button_Add_Rep_click(pReps);
                     };
+
+            Button rmRep = new Button();
+            rmRep.CssClass = "btn active";
+            rmRep.ID = "btn_remRep_" + id; // l'id de la question
+            rmRep.Text = "-";
+            rmRep.CausesValidation = false;
+            if (numberOfRepsToBeShown == 1) rmRep.Enabled = false;
+            pReps.Controls.Add(rmRep);
+
+            rmRep.Click += (s, e) =>
+            {
+                Button_Rem_Rep_click(pReps);
+            };
+
             // Enfin
         }
 
@@ -196,6 +195,16 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
+        protected void Button_Rem_Rep_click(Panel parent)
+        {
+            string questionID = parent.ID.Substring(18); // id du panel parent
+            int numberOfShownAnswers = -1;
+            string viewStateName = "reponseQuestion" + questionID;
+            int.TryParse(ViewState[viewStateName].ToString(), out numberOfShownAnswers);
+            if (numberOfShownAnswers > 1) numberOfShownAnswers--;
+            ViewState[viewStateName] = numberOfShownAnswers.ToString();
+            forcePostBack();
+        }
 
         protected void addAnswer(Panel parent,int questionId, int answerId,bool visible)
         {
