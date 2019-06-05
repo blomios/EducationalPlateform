@@ -89,6 +89,7 @@ namespace LO54_Projet.QUIZZ
                 createQuestion(i);
             }
         }
+        
 
         private void createQuestion(int id)
         {
@@ -109,13 +110,15 @@ namespace LO54_Projet.QUIZZ
             // Ensuite
             // nouvelle textbox
             TextBox t = new TextBox();
-            t.Text = "Some random text just for fun" + id;
+            //t.Text = "Some random text just for fun" + id;
+            t.Attributes.Add("placeholder", "Ecrivez votre question ici ...");
             t.Attributes["value"] = t.Text;
             t.TextMode = TextBoxMode.MultiLine;
             // pour avoir un rendu sympa :)
             t.CssClass = "form-control";
 
             t.ID = "TextBox_Question" + id;
+            t.Attributes.CssStyle.Add("margin-bottom", "10px");
             //t.EnableViewState = false;
             //t.ViewStateMode = ViewStateMode.Disabled;
 
@@ -130,8 +133,8 @@ namespace LO54_Projet.QUIZZ
             // On va créer un autre panel je pense 
             Panel pReps = new Panel();
             pReps.ID = "Reponses_Question_" + id;
-            pReps.BorderStyle = BorderStyle.Solid;
-            pReps.BorderWidth = 1;
+            //pReps.BorderStyle = BorderStyle.Solid;
+            //pReps.BorderWidth = 1;
             
 
             /* On créée au moins un champ de réponse*/
@@ -151,6 +154,8 @@ namespace LO54_Projet.QUIZZ
                 }
                 else addAnswer(pReps, id, i, false);
             }
+
+           
 
             // Et ensuite, on ajoute un boutton pour ajouter des réponses :D
             Button addRep = new Button();
@@ -181,9 +186,11 @@ namespace LO54_Projet.QUIZZ
                 Button_Rem_Rep_click(pReps);
             };
 
-            // Enfin
         }
 
+        /// <summary>
+        /// Evénement du bouton pour ajouter une réponse
+        /// </summary>
         protected void Button_Add_Rep_click(Panel parent)
         {
             string questionID = parent.ID.Substring(18); // id du panel parent
@@ -195,6 +202,9 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
+        /// <summary>
+        /// Evénement du bouton pour enlever une réponse
+        /// </summary>
         protected void Button_Rem_Rep_click(Panel parent)
         {
             string questionID = parent.ID.Substring(18); // id du panel parent
@@ -206,12 +216,25 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
+        /// <summary>
+        /// Fonction permettant d'ajouter un champ texte de réponse, ainsi que les contrôles associés
+        /// Utilisée lors du re calcul de la page (postback)
+        /// </summary>
+        /// <param name="parent">Le panel parent (qui va acceuillir le champ texte)</param>
+        /// <param name="questionId">L'id de la question liée</param>
+        /// <param name="answerId">L'id de la réponse </param>
+        /// <param name="visible">Afin de savoir si l'on affiche les différentes réponses ou non (+/-)</param>
         protected void addAnswer(Panel parent,int questionId, int answerId,bool visible)
         {
+            Label lbRep = new Label();
+            lbRep.Text = "Réponse " + (answerId+1);
+
+            parent.Controls.Add(lbRep);
+
             TextBox tRep = new TextBox();
-            tRep.Text = "Some random text just for fun rep" + answerId;
             tRep.Attributes["value"] = tRep.Text;
             tRep.TextMode = TextBoxMode.MultiLine;
+            tRep.Attributes.Add("placeholder", "Ecrivez votre réponse ici ...");
             // pour avoir un rendu sympa :)
             tRep.CssClass = "form-control";
 
@@ -220,10 +243,36 @@ namespace LO54_Projet.QUIZZ
             tRep.ViewStateMode = ViewStateMode.Enabled;
             //tRep.EnableViewState = false;
             //tRep.ViewStateMode = ViewStateMode.Disabled;
-            if (!visible) tRep.Visible = false;
             parent.Controls.Add(tRep);
+
+            // Puis la checkbox (pour chaque réponse, faut savoir si elle est vraie ou non)
+            CheckBox isGoodAnswer = new CheckBox();
+            isGoodAnswer.CssClass = "checkbox";
+            isGoodAnswer.ID = "chb_isGood_"+questionId+"_"+ answerId;
+            isGoodAnswer.Text = "Bonne réponse";
+            isGoodAnswer.Attributes.CssStyle.Add("margin-left", "21px");
+            isGoodAnswer.TextAlign = TextAlign.Right;
+            isGoodAnswer.LabelAttributes.Add("display", "inline-block!important");
+            isGoodAnswer.CausesValidation = false;
+            
+
+            parent.Controls.Add(isGoodAnswer);
+
+
+            if (!visible)
+            {
+                isGoodAnswer.Visible = false;
+                tRep.Visible = false;
+                lbRep.Visible = false;
+            }
+
+            
         }
 
+
+        /// <summary>
+        /// Evénement du bouton pour ajouter une réponse
+        /// </summary>
         protected void Button_Add_Click(object sender, EventArgs e)
         {
             // cest une nouvelle question
@@ -246,6 +295,10 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
+
+        /// <summary>
+        ///  Force la page à se recharger
+        /// </summary>
         private void forcePostBack()
         {
             StringBuilder sbScript = new StringBuilder();
