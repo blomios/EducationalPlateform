@@ -444,28 +444,6 @@
     <Compile Include="Controllers\Uploadfile.ascx.designer.cs">
       <DependentUpon>Uploadfile.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.cs" />
-    <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.Designer.cs">
-      <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\AnswereMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\FileMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\QuestionMigrations\201905201526569_create.cs" />
-    <Compile Include="DataContexts\QuestionMigrations\201905201526569_create.Designer.cs">
-      <DependentUpon>201905201526569_create.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\QuestionMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.Designer.cs">
-      <DependentUpon>201905241545010_update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\QuizzMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\UVMigrations\201905271439263_Update.cs" />
-    <Compile Include="DataContexts\UVMigrations\201905271439263_Update.Designer.cs">
-      <DependentUpon>201905271439263_Update.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DataContexts\UVMigrations\Configuration.cs" />
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -587,6 +565,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="DataContexts\" />
     <Folder Include="DataDirectory\" />
     <Folder Include="Views\Import\" />
   </ItemGroup>
@@ -611,18 +590,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.resx">
-      <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\QuestionMigrations\201905201526569_create.resx">
-      <DependentUpon>201905201526569_create.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\QuizzMigrations\201905241545010_update.resx">
-      <DependentUpon>201905241545010_update.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\UVMigrations\201905271439263_Update.resx">
-      <DependentUpon>201905271439263_Update.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Repository\IdentityMigrations\201904261318258_InitialCreate.resx">
       <DependentUpon>201904261318258_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
