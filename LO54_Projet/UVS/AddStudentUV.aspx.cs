@@ -28,8 +28,8 @@ namespace LO54_Projet.UVS
                 var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
                 string prenom="";
                 string nom="";
-                string email;
-                string pwd;
+                //string email;
+                //string pwd;
                 try
                 {
                     string filename = Path.GetFileName(FileUploadControl.FileName);
@@ -40,6 +40,7 @@ namespace LO54_Projet.UVS
                     new System.IO.StreamReader(Server.MapPath("~/") + filename);
                     while ((line = file.ReadLine()) != null)
                     {
+                        //continue;
                         Regex regex = new Regex(@"(?<=;)(\w*)(?=;)");
                         MatchCollection match = regex.Matches(line);
                         if (match.Count != 2){
@@ -52,9 +53,12 @@ namespace LO54_Projet.UVS
                             if (i == 1) { nom = m.Value; }
                             i++;
                         }
-                        Regex rx = new Regex(@"(?<=;)(\w*)$");
+                        Regex rx = new Regex(@"(?:.(?<!;))+$");
                         Match mpwd = rx.Match(line);
-                        var user = new ApplicationUser(nom,prenom ) ;
+                        Regex rxemail = new Regex(@"^([^;]+)(?=;)");
+                        Match memail = rxemail.Match(line);
+                        StatusLabel.Text = " " + prenom + " " + nom + " " + mpwd.Value;
+                        var user = new ApplicationUser(nom,prenom ) { UserName = prenom + " " + nom, Email =memail.Value  }; ;
                         IdentityResult result = manager.Create(user,mpwd.Value );
                         if (result.Succeeded)
                         {
@@ -72,6 +76,10 @@ namespace LO54_Projet.UVS
                     StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
                 }
             }   
+        }
+        protected void Button_Redirect(object sender, EventArgs e)
+        {
+            Response.Redirect("/Default");
         }
     }
 }

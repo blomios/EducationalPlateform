@@ -38,6 +38,11 @@ namespace LO54_Projet
             Response.Redirect("QUIZZ/CreateQuizz.aspx");
         }
 
+        protected void Button2_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("UVS/AddStudentUV.aspx");
+        }
+
         protected void refresh()
         {
             this.Response.Redirect(Request.RawUrl);
