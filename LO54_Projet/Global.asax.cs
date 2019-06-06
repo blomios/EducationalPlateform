@@ -30,7 +30,7 @@ namespace LO54_Projet
 
                 if (Context.User == null)
                 {
-                    Response.Redirect("Account/Login.aspx", true);
+                    Response.Redirect("/Account/Login.aspx", true);
                     Response.End();
                     return;
                 }
