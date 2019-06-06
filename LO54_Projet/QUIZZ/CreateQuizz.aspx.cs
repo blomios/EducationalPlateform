@@ -35,10 +35,10 @@ namespace LO54_Projet.QUIZZ
                 ViewState[VIEWSTATEKEY_DYNCONTROL] = value;
             }
         }
-      
 
-     
-        protected void Page_Load(object sender, EventArgs e) 
+
+
+        protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack) // la page ne se recharge pas
@@ -47,7 +47,7 @@ namespace LO54_Projet.QUIZZ
             }
             else // la page se recharge
             {
-                makePostBackControls();              
+                makePostBackControls();
             }
 
 
@@ -59,12 +59,12 @@ namespace LO54_Projet.QUIZZ
             Boolean.TryParse(vsFirst, out first);
             if (first)
             {
-                questionsCreated =0;
+                questionsCreated = 0;
             }
             else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
             ViewState["first"] = Boolean.FalseString;
             if (questionsCreated > 0) createControls();
-            
+
         }
 
         private void init()
@@ -89,7 +89,6 @@ namespace LO54_Projet.QUIZZ
                 createQuestion(i);
             }
         }
-        
 
         private void createQuestion(int id)
         {
@@ -97,15 +96,13 @@ namespace LO54_Projet.QUIZZ
             Panel p = new Panel();
             p.ID = "Panel_Question_" + id;
             p.Attributes.CssStyle.Add("margin-bottom", "10px");
-            // on le raccroche au conteneur
-            panel_Questions_Container.Controls.Add(p);
+            
 
             // Ensuite, un label, pour pas que l'utilisateur soit paumé 
             // on pourrait aussi mettre un placeholder dans la textbox, c est comme vous le sentez
             Label l = new Label();
             l.ID = "Label_Question_" + id;
-            l.Text = "Enonce " + (id+1);
-            p.Controls.Add(l);
+            l.Text = "Enoncé " + (id + 1);
 
             // Ensuite
             // nouvelle textbox
@@ -119,33 +116,27 @@ namespace LO54_Projet.QUIZZ
 
             t.ID = "TextBox_Question" + id;
             t.Attributes.CssStyle.Add("margin-bottom", "10px");
-            //t.EnableViewState = false;
-            //t.ViewStateMode = ViewStateMode.Disabled;
 
-            /*
-                        < asp:RequiredFieldValidator runat = "server" ControlToValidate = "QuizzName"
-                        CssClass = "text-danger" ErrorMessage = "Le champ nom est obligatoire." />
-            Il faudra penser à rajouter ça tout de même :)
-             */
+            // Le text validator
+            RequiredFieldValidator rfv = new RequiredFieldValidator();
+            rfv.ID = "requiredFieldValidator_Enonce_" + id;
+            rfv.ControlToValidate = t.ID;
+            rfv.CssClass = "text-danger";
+            rfv.ErrorMessage = "L'énoncé de la question " + (id + 1) + " est vide";
+            rfv.Display = ValidatorDisplay.Dynamic;
 
-            p.Controls.Add(t);
+
             // ENSUITE, réponses :D
             // On va créer un autre panel je pense 
             Panel pReps = new Panel();
             pReps.ID = "Reponses_Question_" + id;
-            //pReps.BorderStyle = BorderStyle.Solid;
-            //pReps.BorderWidth = 1;
             
-
             /* On créée au moins un champ de réponse*/
-            p.Controls.Add(pReps);
-            
-
             // on va créer 4 champs de réponse
             // et en afficher 1, quand l'utilisateur aura cliqué sur + on affichera le second, puis le troisième ... 
             // On va utiliser le viewState
             int numberOfRepsToBeShown = -1;
-            int.TryParse(ViewState["reponseQuestion" + id.ToString()].ToString(), out numberOfRepsToBeShown) ;
+            int.TryParse(ViewState["reponseQuestion" + id.ToString()].ToString(), out numberOfRepsToBeShown);
             for (int i = 0; i < 4; i++)
             {
                 if (i < numberOfRepsToBeShown)
@@ -155,23 +146,21 @@ namespace LO54_Projet.QUIZZ
                 else addAnswer(pReps, id, i, false);
             }
 
-           
-
             // Et ensuite, on ajoute un boutton pour ajouter des réponses :D
             Button addRep = new Button();
             addRep.CssClass = "btn active";
             addRep.ID = "btn_addRep_" + id; // l'id de la question
             addRep.Text = "+";
             addRep.CausesValidation = false;
+            if (numberOfRepsToBeShown == 4) addRep.Enabled = false;
 
 
-            pReps.Controls.Add(addRep);
             // On va utiliser une autre fonction pourqu'a chaque fois que l'on clique sur le bouton
             // Un nouveau champ texte apparaisse 
-            addRep.Click += (s,e)=> 
-                    {
-                        Button_Add_Rep_click(pReps);
-                    };
+            addRep.Click += (s, e) =>
+            {
+                Button_Add_Rep_click(pReps);
+            };
 
             Button rmRep = new Button();
             rmRep.CssClass = "btn active";
@@ -179,32 +168,37 @@ namespace LO54_Projet.QUIZZ
             rmRep.Text = "-";
             rmRep.CausesValidation = false;
             if (numberOfRepsToBeShown == 1) rmRep.Enabled = false;
-            pReps.Controls.Add(rmRep);
 
             rmRep.Click += (s, e) =>
             {
                 Button_Rem_Rep_click(pReps);
             };
 
+
+            Literal hr = new Literal() { ID = "hr_" + id, Text = "<hr/>" };
+            panel_Questions_Container.Controls.Add(p);
+            p.Controls.Add(l);
+            p.Controls.Add(t);
+            p.Controls.Add(rfv);
+            p.Controls.Add(hr);
+            p.Controls.Add(pReps);
+            pReps.HorizontalAlign = HorizontalAlign.Left;
+            pReps.Controls.Add(addRep);
+            pReps.Controls.Add(rmRep);
+            // Enfin
         }
 
-        /// <summary>
-        /// Evénement du bouton pour ajouter une réponse
-        /// </summary>
         protected void Button_Add_Rep_click(Panel parent)
         {
             string questionID = parent.ID.Substring(18); // id du panel parent
             int numberOfShownAnswers = -1;
             string viewStateName = "reponseQuestion" + questionID;
-            int.TryParse(ViewState[viewStateName].ToString(),out numberOfShownAnswers) ;
-            if(numberOfShownAnswers<4) numberOfShownAnswers++;
+            int.TryParse(ViewState[viewStateName].ToString(), out numberOfShownAnswers);
+            if (numberOfShownAnswers < 4) numberOfShownAnswers++;
             ViewState[viewStateName] = numberOfShownAnswers.ToString();
             forcePostBack();
         }
 
-        /// <summary>
-        /// Evénement du bouton pour enlever une réponse
-        /// </summary>
         protected void Button_Rem_Rep_click(Panel parent)
         {
             string questionID = parent.ID.Substring(18); // id du panel parent
@@ -216,48 +210,43 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
-        /// <summary>
-        /// Fonction permettant d'ajouter un champ texte de réponse, ainsi que les contrôles associés
-        /// Utilisée lors du re calcul de la page (postback)
-        /// </summary>
-        /// <param name="parent">Le panel parent (qui va acceuillir le champ texte)</param>
-        /// <param name="questionId">L'id de la question liée</param>
-        /// <param name="answerId">L'id de la réponse </param>
-        /// <param name="visible">Afin de savoir si l'on affiche les différentes réponses ou non (+/-)</param>
-        protected void addAnswer(Panel parent,int questionId, int answerId,bool visible)
+        protected void addAnswer(Panel parent, int questionId, int answerId, bool visible)
         {
             Label lbRep = new Label();
-            lbRep.Text = "Réponse " + (answerId+1);
-
-            parent.Controls.Add(lbRep);
+            //lbRep.ID = "label_Question_" + questionId + "_Reponse_" + answerId;
+            lbRep.Text = "Réponse " + (answerId + 1);
 
             TextBox tRep = new TextBox();
+            //tRep.Text = "Some random text just for fun rep" + answerId;
+
+            tRep.Attributes.Add("placeholder", "Ecrivez votre réponse ici ...");
             tRep.Attributes["value"] = tRep.Text;
             tRep.TextMode = TextBoxMode.MultiLine;
-            tRep.Attributes.Add("placeholder", "Ecrivez votre réponse ici ...");
             // pour avoir un rendu sympa :)
             tRep.CssClass = "form-control";
 
             tRep.ID = "TextBox_Question_Reponse_" + questionId + "_" + answerId;
             tRep.EnableViewState = true;
             tRep.ViewStateMode = ViewStateMode.Enabled;
-            //tRep.EnableViewState = false;
-            //tRep.ViewStateMode = ViewStateMode.Disabled;
-            parent.Controls.Add(tRep);
+
+            // Field validator
+            RequiredFieldValidator rfv = new RequiredFieldValidator();
+            rfv.ID = "requiredFieldValidator_Question_" + questionId + "_Answer_" + answerId;
+            rfv.ControlToValidate = tRep.ID;
+            rfv.CssClass = "text-danger";
+            rfv.ErrorMessage = "La réponse "+(answerId+1)+" de la question "+ (questionId+1) +" est vide";
+            rfv.Attributes.Add("runat", "server");
+            rfv.Display = ValidatorDisplay.Dynamic;
 
             // Puis la checkbox (pour chaque réponse, faut savoir si elle est vraie ou non)
             CheckBox isGoodAnswer = new CheckBox();
             isGoodAnswer.CssClass = "checkbox";
-            isGoodAnswer.ID = "chb_isGood_"+questionId+"_"+ answerId;
+            isGoodAnswer.ID = "chb_isGood_" + questionId + "_" + answerId;
             isGoodAnswer.Text = "Bonne réponse";
             isGoodAnswer.Attributes.CssStyle.Add("margin-left", "21px");
             isGoodAnswer.TextAlign = TextAlign.Right;
-            isGoodAnswer.LabelAttributes.Add("display", "inline-block!important");
+            //isGoodAnswer.LabelAttributes.Add("display", "inline-block!important");
             isGoodAnswer.CausesValidation = false;
-            
-
-            parent.Controls.Add(isGoodAnswer);
-
 
             if (!visible)
             {
@@ -265,22 +254,22 @@ namespace LO54_Projet.QUIZZ
                 tRep.Visible = false;
                 lbRep.Visible = false;
             }
-
+         
             
+            parent.Controls.Add(lbRep);
+            parent.Controls.Add(tRep);
+            parent.Controls.Add(rfv);
+            parent.Controls.Add(isGoodAnswer);
         }
 
-
-        /// <summary>
-        /// Evénement du bouton pour ajouter une réponse
-        /// </summary>
         protected void Button_Add_Click(object sender, EventArgs e)
         {
             // cest une nouvelle question
             questionsCreated++;
-            
+
 
             ViewState["questionsCreated"] = questionsCreated.ToString();
-            ViewState["reponseQuestion" + (questionsCreated-1).ToString()] = 1;
+            ViewState["reponseQuestion" + (questionsCreated - 1).ToString()] = 1;
             foreach (Control ctrl in panel_Questions_Container.Controls)
             {
                 foreach (Control ct in ctrl.Controls)
@@ -295,10 +284,6 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
-
-        /// <summary>
-        ///  Force la page à se recharger
-        /// </summary>
         private void forcePostBack()
         {
             StringBuilder sbScript = new StringBuilder();
