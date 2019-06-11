@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
+using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -25,38 +28,57 @@ namespace LO54_Projet.Controllers
             //Files is folder Name
             if (Page.IsValid)
             {
+                fuSample.SaveAs(Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName);
+                lblMessage.Text = "File Successfully Uploaded";
+                lblMessage.ForeColor = System.Drawing.Color.FromArgb(54, 204, 43);
 
-                try
+
+                var context = new FileDb(); // Uv db c'est la classe qui correspond à la table en bd 
+                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName, uv); // On créé une nouvelle UV
+                
+
+                if (context.Files.Any(o => o.Name == fuSample.FileName))
                 {
-                    fuSample.SaveAs(Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName);
-                    lblMessage.Text = "File Successfully Uploaded";
-                    lblMessage.ForeColor = System.Drawing.Color.FromArgb(54, 204, 43);
-
-
-                    var context = new FileDb(); // File db c'est la classe qui correspond à la table en bd 
-                    File file = new File();
-                    using (var identityDbContext = new IdentityDb())
+                    lblMessage.Text = "Cette UV existe déjà !";
+                }
+                else
+                {
+                    lblMessage.Text = "";
+                    context.Files.Add(file); // On l'ajoute à la liste d'uv de UVDB
+                    try
                     {
-                        file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName, uv); // On créé un nouveau fichier
+                        context.SaveChanges(); // On sauvegarde les changements
                     }
+                    catch (DbEntityValidationException ex)
+                    {
+                        foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                        {
+                            // Get entry
 
+                            DbEntityEntry entry = item.Entry;
+                            string entityTypeName = entry.Entity.GetType().Name;
 
-                    context.SaveChanges(); // On sauvegarde les changements
-                    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-                    /* ATTENTION :                                                                                     */
-                    /*                                                                                                 */
-                    /* POUR QUE LES CHANGEMENTS SOIENT PRIS EN COMPTE :                                                */
-                    /* Il faut que le fichier LO54_DB.mdf du dossier "App_Data"                                        */
-                    /* ait dans la propriété : Copier dans le répertoire de sortie ----> Copier si plus récent         */
-                    /*                                                                                                 */
-                    /*                                                                                                 */
-                    /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                            // Display or log error messages
+
+                            foreach (DbValidationError subItem in item.ValidationErrors)
+                            {
+                                string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                                         subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                                System.Diagnostics.Debug.WriteLine(message);
+                            }
+                        }
+                    }
                 }
-                catch
-                {
-                    lblMessage.ForeColor = System.Drawing.Color.FromArgb(230, 12, 12);
-                    lblMessage.Text = "Error";
-                }
+                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+                /* ATTENTION :                                                                                     */
+                /*                                                                                                 */
+                /* POUR QUE LES CHANGEMENTS SOIENT PRIS EN COMPTE :                                                */
+                /* Il faut que le fichier LO54_DB.mdf du dossier "App_Data"                                        */
+                /* ait dans la propriété : Copier dans le répertoire de sortie ----> Copier si plus récent         */
+                /*                                                                                                 */
+                /*                                                                                                 */
+                /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
             }
         }
     }
