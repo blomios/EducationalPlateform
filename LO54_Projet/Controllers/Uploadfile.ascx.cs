@@ -17,7 +17,7 @@ namespace LO54_Projet.Controllers
 {
     public partial class Uploadfile : System.Web.UI.UserControl
     {
-        public UV uv;
+        public int idUv;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,41 +34,35 @@ namespace LO54_Projet.Controllers
 
 
                 var context = new FileDb(); // Uv db c'est la classe qui correspond à la table en bd 
-                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName, uv); // On créé une nouvelle UV
+                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName, idUv); // On créé une nouvelle UV
                 
-
-                if (context.Files.Any(o => o.Name == fuSample.FileName))
+                
+                lblMessage.Text = "";
+                context.Files.Add(file); // On l'ajoute à la liste d'uv de UVDB
+                try
                 {
-                    lblMessage.Text = "Cette UV existe déjà !";
+                    context.SaveChanges(); // On sauvegarde les changements
                 }
-                else
+                catch (DbEntityValidationException ex)
                 {
-                    lblMessage.Text = "";
-                    context.Files.Add(file); // On l'ajoute à la liste d'uv de UVDB
-                    try
+                    foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
                     {
-                        context.SaveChanges(); // On sauvegarde les changements
-                    }
-                    catch (DbEntityValidationException ex)
-                    {
-                        foreach (DbEntityValidationResult item in ex.EntityValidationErrors)
+                        // Get entry
+
+                        DbEntityEntry entry = item.Entry;
+                        string entityTypeName = entry.Entity.GetType().Name;
+
+                        // Display or log error messages
+
+                        foreach (DbValidationError subItem in item.ValidationErrors)
                         {
-                            // Get entry
-
-                            DbEntityEntry entry = item.Entry;
-                            string entityTypeName = entry.Entity.GetType().Name;
-
-                            // Display or log error messages
-
-                            foreach (DbValidationError subItem in item.ValidationErrors)
-                            {
-                                string message = string.Format("Error '{0}' occurred in {1} at {2}",
-                                         subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
-                                System.Diagnostics.Debug.WriteLine(message);
-                            }
+                            string message = string.Format("Error '{0}' occurred in {1} at {2}",
+                                        subItem.ErrorMessage, entityTypeName, subItem.PropertyName);
+                            System.Diagnostics.Debug.WriteLine(message);
                         }
                     }
                 }
+                
                 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
                 /* ATTENTION :                                                                                     */
                 /*                                                                                                 */

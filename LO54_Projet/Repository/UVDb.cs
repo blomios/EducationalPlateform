@@ -11,7 +11,7 @@ namespace LO54_Projet.Repository
         private static readonly UVDb Instance = new UVDb();
         public DbSet<UV> UVs { get; set; } // Créer la table UVs à partir des objets UV implémentés avec le site web
 
-        private UVDb() :base("TestReel")
+        public UVDb() :base("TestReel")
         {
         }
 

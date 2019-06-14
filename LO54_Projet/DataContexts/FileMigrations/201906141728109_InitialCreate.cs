@@ -20,6 +20,19 @@ namespace LO54_Projet.DataContexts.FileMigrations
                 .ForeignKey("dbo.UVs", t => t.Uv_IdUv, cascadeDelete: true)
                 .Index(t => t.Uv_IdUv);
             
+            CreateTable(
+                "dbo.UVs",
+                c => new
+                    {
+                        IdUv = c.Int(nullable: false, identity: true),
+                        Denomination = c.String(nullable: false, maxLength: 4),
+                        Name = c.String(nullable: false),
+                        Description = c.String(),
+                        Owner = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.IdUv)
+                .Index(t => t.Denomination, unique: true);
+            
         }
         
         public override void Down()

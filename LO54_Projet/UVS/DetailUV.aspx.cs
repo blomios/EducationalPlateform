@@ -24,6 +24,7 @@ namespace LO54_Projet.UVS
             Page.Title = cUV.Denomination + ": " + cUV.Name;
             LB_Owner.Text = userContext.GetUsername(cUV.Owner);
             LB_Desc.Text = cUV.Description;
+            Uploadfile1.idUv = cUV.IdUv;
         }
         
         protected void Button_RedirectToListUV_Click(object sender, EventArgs e)

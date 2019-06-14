@@ -36,6 +36,7 @@ namespace LO54_Projet.DataContexts.QuestionMigrations
                     {
                         IdUv = c.Int(nullable: false, identity: true),
                         Denomination = c.String(nullable: false, maxLength: 4),
+                        Name = c.String(nullable: false),
                         Description = c.String(),
                         Owner = c.String(nullable: false),
                     })
