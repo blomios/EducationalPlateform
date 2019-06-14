@@ -3,7 +3,7 @@ namespace LO54_Projet.DataContexts.UVMigrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class Update : DbMigration
+    public partial class InitialCreate : DbMigration
     {
         public override void Up()
         {

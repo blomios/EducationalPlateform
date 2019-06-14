@@ -1,9 +1,9 @@
-namespace LO54_Projet.DataContexts.QuizzMigrations
+namespace LO54_Projet.DataContexts.FileMigrations
 {
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class test : DbMigration
+    public partial class InitialCreate1 : DbMigration
     {
         public override void Up()
         {

@@ -37,6 +37,7 @@ namespace LO54_Projet.DataContexts.IdentityMigrations
                         Id = c.String(nullable: false, maxLength: 128),
                         Nom = c.String(nullable: false),
                         Prenom = c.String(nullable: false),
+                        Role = c.String(nullable: false),
                         Email = c.String(maxLength: 256),
                         EmailConfirmed = c.Boolean(nullable: false),
                         PasswordHash = c.String(),
