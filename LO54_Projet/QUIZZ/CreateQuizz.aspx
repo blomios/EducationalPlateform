@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Création d'un QUIZZ" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateQuizz.aspx.cs" Inherits="LO54_Projet.QUIZZ.WebForm2" %>
+﻿<%@ Page Title="Création d'un QUIZZ" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="CreateQuizz.aspx.cs" Inherits="LO54_Projet.QUIZZ.WebForm2" MaintainScrollPositionOnPostback="true" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
@@ -17,7 +17,7 @@
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="QuizzName" CssClass="form-control"/>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="QuizzName"
-                    CssClass="text-danger" ErrorMessage="Le champ nom est obligatoire." />
+                    CssClass="text-danger" ErrorMessage="Le quizz doit avoir un nom." />
             </div>
         </div>
         <div class="form-group">
@@ -25,6 +25,8 @@
             <div class="col-md-10">
                 <asp:RadioButtonList ID="RadioButtonList_ChoixUV" runat="server" CssClass="radio">
                 </asp:RadioButtonList>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="RadioButtonList_ChoixUV"
+                    CssClass="text-danger" ErrorMessage="Au moins une UV doit être sélectionnée" />
             </div>
         </div>
         <div class ="form-group" ID ="listQuestions">
@@ -36,7 +38,7 @@
 
                     </asp:Panel>
                     <div>
-                        <asp:Button ID="Button_Add" runat="server" BorderStyle="None" CssClass="btn active" Text="+" OnClick="Button_Add_Click" CausesValidation="False" />
+                        <asp:Button ID="Button_Add" runat="server" BorderStyle="None" AutoPostBack="true" OnClientClick="Button_Add_Click" CssClass="btn active" Text="Ajouter une question" UseSubmitBehavior="true"  OnClick="Button_Add_Click" CausesValidation="False" EnableViewState="True" />
                     </div>
                
                 </div>

@@ -7,13 +7,13 @@ namespace LO54_Projet.DataContexts.UVMigrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class AddName : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(AddName));
         
         string IMigrationMetadata.Id
         {
-            get { return "201905011022463_InitialCreate"; }
+            get { return "201906051158157_AddName"; }
         }
         
         string IMigrationMetadata.Source

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
-using System.Text.RegularExpressions;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using LO54_Projet.Entities;
@@ -12,27 +7,46 @@ using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.UVS
 {
-    public partial class AddUV : System.Web.UI.Page
+    public partial class FormUV : System.Web.UI.Page
     {
+
+        private static UVDb uvContext = UVDb.GetInstance();
+        private UV cUV;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+            string uvDenom = Request.Params.Get("uv");
+            if (uvDenom != null && uvDenom != "")
+            {
+                cUV = uvContext.GetByDenomination(uvDenom);
+
+                // prevent from executing the following code when a button is clicked on the page (like "save" for example)
+                if (!IsPostBack)
+                {
+                    Denomination.Text = cUV.Denomination;
+                    Name.Text = cUV.Name;
+                    Description.Text = cUV.Description;
+                }
+            }
+        }
 
         protected void Button_Creer_UV_Click(object sender, EventArgs e)
         {
             if (Page.IsValid)
             {
-                var context = new UVDb(); // Uv db c'est la classe qui correspond à la table en bd
-                var uv = new UV(Denomination.Text, Description.Text,User.Identity.GetUserName()); // On créé une nouvelle UV
+                UV uv = new UV();
+                uv = new UV(Denomination.Text, Name.Text, Description.Text, User.Identity.GetUserId());
+                uv.IdUv = cUV != null ? cUV.IdUv : 0;
 
-                if (context.UVs.Any(o => o.Denomination == Denomination.Text))
-                {
-                    ErrorMessage.Text = "Cette UV existe déjà !";
-                }
-                else
+                if (cUV != null || uvContext.GetByDenomination(Denomination.Text) == null)
                 {
                     ErrorMessage.Text = "";
-                    context.UVs.Add(uv); // On l'ajoute à la liste d'uv de UVDB
-                    context.SaveChanges(); // On sauvegarde les changements
-                    RedirectToListUV();
-                }
+                    uvContext.SaveOrUpdate(uv);
+                    Response.Redirect("/UVS/DetailUV.aspx?uv=" + Denomination.Text, true);
+                } // else
+
+                ErrorMessage.Text = "Cette UV existe déjà !";
                 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
                 /* ATTENTION :                                                                                     */
                 /*                                                                                                 */
@@ -46,14 +60,16 @@ namespace LO54_Projet.UVS
             }
         }
 
-        private void RedirectToListUV()
-        {
-            Response.Redirect("/UVS/ListUV.aspx", true);
-        }
-
         protected void Button_RedirectToListUV(object sender, EventArgs e)
         {
-            RedirectToListUV();
+            if (cUV == null)
+            {
+                Response.Redirect("/UVS/ListUV.aspx", true);
+            }
+            else
+            {
+                Response.Redirect("/UVS/FormUV.aspx?uv=" + cUV.Denomination, true);
+            }
         }
 
         // Validation de la dénomination de l'UV

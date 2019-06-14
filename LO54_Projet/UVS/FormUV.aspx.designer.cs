@@ -10,7 +10,7 @@
 namespace LO54_Projet.UVS {
     
     
-    public partial class AddUV {
+    public partial class FormUV {
         
         /// <summary>
         /// Contrôle ErrorMessage.
@@ -38,6 +38,24 @@ namespace LO54_Projet.UVS {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorDenomination;
+        
+        /// <summary>
+        /// Contrôle Name.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.TextBox Name;
+        
+        /// <summary>
+        /// Contrôle CustomValidator1.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
         
         /// <summary>
         /// Contrôle Description.

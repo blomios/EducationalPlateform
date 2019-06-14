@@ -22,6 +22,7 @@ namespace LO54_Projet.Models
         [Required]
         public string Role { get; set; } 
 
+
         public ApplicationUser() : base()
         {
             Nom = "";

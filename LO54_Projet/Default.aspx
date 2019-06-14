@@ -51,14 +51,6 @@
                 <asp:SqlDataSource ID="SqlDataSourceToto" runat="server" ConnectionString="<%$ ConnectionStrings:TestConnection %>" SelectCommand="SELECT * FROM [toto]"></asp:SqlDataSource>
             </p>
         </div>
-        <div class="col-md-4">
-            <h2>Remise à 0</h2>
-            <p>
-                DELETE</p>
-            <p>
-                &nbsp;<asp:Button ID="Button2" runat="server" CssClass="btn-warning" OnClick="Button2_Click" Text="Delete" />
-            </p>
-        </div>
     </div>
 
 </asp:Content>
