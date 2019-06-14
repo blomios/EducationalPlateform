@@ -57,7 +57,7 @@ namespace LO54_Projet.UVS
                         Match mpwd = rx.Match(line);
                         Regex rxemail = new Regex(@"^([^;]+)(?=;)");
                         Match memail = rxemail.Match(line);
-                        StatusLabel.Text = " " + prenom + " " + nom + " " + mpwd.Value;
+                        //StatusLabel.Text = " " + prenom + " " + nom + " " + mpwd.Value;
                         var user = new ApplicationUser(nom,prenom ) { UserName = prenom + " " + nom, Email =memail.Value  }; ;
                         IdentityResult result = manager.Create(user,mpwd.Value );
                         if (result.Succeeded)
