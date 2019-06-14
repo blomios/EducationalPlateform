@@ -16,15 +16,15 @@ namespace LO54_Projet.Entities
         public string FilePath { get; set; }
 
         [Required]
-        public UV Uv { get; set; }
+        public int idUv { get; set; }
 
         public File() { }
 
-        public File(string Name, string FilePath, UV uv)
+        public File(string Name, string FilePath, int idUv)
         {
             this.Name = Name;
             this.FilePath = FilePath;
-            this.Uv = uv;
+            this.idUv = idUv;
         }
     }
 }

@@ -9,7 +9,7 @@ namespace LO54_Projet.DataContexts.QuestionMigrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
+            AutomaticMigrationsEnabled = false;
             MigrationsDirectory = @"DataContexts\QuestionMigrations";
         }
 
