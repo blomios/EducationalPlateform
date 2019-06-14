@@ -11,6 +11,9 @@
     <div>
         <h3>Définition du quizz</h3>
         <hr /> 
+        <div runat="server" id="successDiv" class="aler alert-success">
+            Quizz ajouté avec succés
+        </div>
         <asp:ValidationSummary runat="server" CssClass="text-danger" />
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="QuizzName" CssClass="col-md-2 control-label">Nom du quizz</asp:Label>
@@ -39,13 +42,16 @@
                     </asp:Panel>
                     <div>
                         <asp:Button ID="Button_Add" runat="server" BorderStyle="None" AutoPostBack="true" OnClientClick="Button_Add_Click" CssClass="btn active" Text="Ajouter une question" UseSubmitBehavior="true"  OnClick="Button_Add_Click" CausesValidation="False" EnableViewState="True" />
+                        <asp:Button ID="Button_Remove" runat="server" AutoPostBack="true" BorderStyle="None" CausesValidation="False" CssClass="btn active" EnableViewState="True" OnClick="Button_Rem_Click" OnClientClick="Button_Rem_Click" Text="Enlever une question" UseSubmitBehavior="true" />
                     </div>
                
                 </div>
             </asp:Panel>
         </div>
         <div class="form-group">
-            <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Créer" />
+            <asp:Label ID="Label_manqueRep" runat="server" Text="Au moins l'une de vos questions n'a pas de bonne réponse" CssClass="text-danger" Visible="False"></asp:Label>
+            <br />
+            <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Créer" OnClick="Button_Creer_UV_Click" />
         </div>
     </div>
 

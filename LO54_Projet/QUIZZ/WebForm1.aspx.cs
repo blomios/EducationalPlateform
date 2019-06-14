@@ -70,7 +70,7 @@ namespace LO54_Projet.QUIZZ
             foreach(QuestionQuizzForm q in Panel2.Controls.OfType<QuestionQuizzForm>())
             {
                 string name = "";
-                List<Answere> answeres = new List<Answere>();
+                List<Answer> answeres = new List<Answer>();
                 answereType = AnswereType.QCM;
 
                 foreach(AnswereForm a in q.Controls.OfType<AnswereForm>())

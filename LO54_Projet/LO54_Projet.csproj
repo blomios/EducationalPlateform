@@ -433,9 +433,9 @@
     <Compile Include="Controllers\QuestionQuizzForm.ascx.designer.cs">
       <DependentUpon>QuestionQuizzForm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.cs" />
-    <Compile Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.Designer.cs">
-      <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\AnswereMigrations\201906142200217_Update1.cs" />
+    <Compile Include="DataContexts\AnswereMigrations\201906142200217_Update1.Designer.cs">
+      <DependentUpon>201906142200217_Update1.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\AnswereMigrations\Configuration.cs" />
     <Compile Include="DataContexts\IdentityMigrations\201905011023374_InitialCreate.cs" />
@@ -448,9 +448,9 @@
       <DependentUpon>201905201526569_create.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\QuestionMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201905241545010_update.Designer.cs">
-      <DependentUpon>201905241545010_update.cs</DependentUpon>
+    <Compile Include="DataContexts\QuizzMigrations\201906142210287_Update1.cs" />
+    <Compile Include="DataContexts\QuizzMigrations\201906142210287_Update1.Designer.cs">
+      <DependentUpon>201906142210287_Update1.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\QuizzMigrations\Configuration.cs" />
     <Compile Include="DataContexts\UVMigrations\201905271439263_Update.cs" />
@@ -465,7 +465,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Answere.cs" />
+    <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\AnswereType.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Quizz.cs" />
@@ -598,8 +598,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\AnswereMigrations\201905011023498_InitialCreate.resx">
-      <DependentUpon>201905011023498_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\AnswereMigrations\201906142200217_Update1.resx">
+      <DependentUpon>201906142200217_Update1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201905011023374_InitialCreate.resx">
       <DependentUpon>201905011023374_InitialCreate.cs</DependentUpon>
@@ -607,8 +607,8 @@
     <EmbeddedResource Include="DataContexts\QuestionMigrations\201905201526569_create.resx">
       <DependentUpon>201905201526569_create.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\QuizzMigrations\201905241545010_update.resx">
-      <DependentUpon>201905241545010_update.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\QuizzMigrations\201906142210287_Update1.resx">
+      <DependentUpon>201906142210287_Update1.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\UVMigrations\201905271439263_Update.resx">
       <DependentUpon>201905271439263_Update.cs</DependentUpon>

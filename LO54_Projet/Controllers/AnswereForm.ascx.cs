@@ -19,13 +19,13 @@ namespace LO54_Projet.Controllers
 
         }
 
-        public Answere getAnswere()
+        public Answer getAnswere()
         {
-            Answere answere = new Answere(AnswereText.Text, GoodAnswereCheckBox.Checked);
+            Answer answere = new Answer(AnswereText.Text, GoodAnswereCheckBox.Checked);
             return answere;
         }
 
-        public void setAnswere(Answere answere)
+        public void setAnswere(Answer answere)
         {
             AnswereText.Text = answere.answere;
             GoodAnswereCheckBox.Checked = answere.isGoodAnswere;
