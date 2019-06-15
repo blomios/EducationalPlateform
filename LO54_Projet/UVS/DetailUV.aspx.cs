@@ -2,6 +2,7 @@
 using LO54_Projet.Repository;
 using System;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.UVS
 {
@@ -24,6 +25,9 @@ namespace LO54_Projet.UVS
             Page.Title = cUV.Denomination + ": " + cUV.Name;
             LB_Owner.Text = userContext.GetUsername(cUV.Owner);
             LB_Desc.Text = cUV.Description;
+
+            // check if owner for edit button
+            Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
         }
         
         protected void Button_RedirectToListUV_Click(object sender, EventArgs e)

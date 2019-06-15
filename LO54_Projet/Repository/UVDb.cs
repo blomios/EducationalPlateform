@@ -64,5 +64,12 @@ namespace LO54_Projet.Repository
                 Save(uv);
             }
         }
+
+        public void DeleteByDenomination(string denomination)
+        {
+            UV uv = UVs.First(u => u.Denomination == denomination);
+            UVs.Remove(uv);
+            SaveChanges();
+        }
     }
 }
