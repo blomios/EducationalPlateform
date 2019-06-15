@@ -315,6 +315,7 @@
     <Content Include="Scripts\WebForms\WebUIValidation.js" />
     <Content Include="Site.Master" />
     <Content Include="UnauthorizedAccess.aspx" />
+    <Content Include="UVS\AddStudentUV.aspx" />
     <Content Include="UVS\DetailUV.aspx" />
     <Content Include="UVS\FormUV.aspx" />
     <Content Include="UVS\ListUV.aspx" />
@@ -591,6 +592,13 @@
       <DependentUpon>UnauthorizedAccess.aspx</DependentUpon>
     </Compile>
     <Compile Include="Utils\GetUserRole.cs" />
+    <Compile Include="UVS\AddStudentUV.aspx.cs">
+      <DependentUpon>AddStudentUV.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="UVS\AddStudentUV.aspx.designer.cs">
+      <DependentUpon>AddStudentUV.aspx</DependentUpon>
+    </Compile>
     <Compile Include="UVS\DetailUV.aspx.cs">
       <DependentUpon>DetailUV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
