@@ -23,6 +23,14 @@
             <asp:Button ID="Button3" runat="server" CssClass="btn-primary" OnClick="Button3_Click" Text="CRUD QUIZZ" />
 
             </p>
+        </div>
+        <div class="col-md-4">
+            <h2>Accéder à l'ajout d'étudiants</h2>
+            <p>
+
+            <asp:Button ID="Button2" runat="server" CssClass="btn-primary" OnClick="Button2_Click" Text="Ajout d'étudiants" />
+
+            </p>
         </div
         <div class="col-md-4">
             <h2>Affichage des informations :</h2>
