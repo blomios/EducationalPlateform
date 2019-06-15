@@ -15,6 +15,10 @@ namespace LO54_Projet.UVS
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                ViewState["RefUrl"] = Request.UrlReferrer.ToString();
+            }
 
             string uvDenom = Request.Params.Get("uv");
             if (uvDenom != null && uvDenom != "")
@@ -60,16 +64,10 @@ namespace LO54_Projet.UVS
             }
         }
 
-        protected void Button_RedirectToListUV(object sender, EventArgs e)
+        protected void Button_Back(object sender, EventArgs e)
         {
-            if (cUV == null)
-            {
-                Response.Redirect("/UVS/ListUV.aspx", true);
-            }
-            else
-            {
-                Response.Redirect("/UVS/FormUV.aspx?uv=" + cUV.Denomination, true);
-            }
+            string url = ViewState["RefUrl"] == null ? "listUV.aspx" : (string)ViewState["RefUrl"];
+            Response.Redirect(url, true);
         }
 
         // Validation de la dénomination de l'UV

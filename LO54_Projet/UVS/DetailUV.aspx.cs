@@ -4,6 +4,7 @@ using LO54_Projet.Models;
 using LO54_Projet.Repository;
 using System;
 using System.Web;
+using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.UVS
 {
@@ -37,6 +38,9 @@ namespace LO54_Projet.UVS
             Uploadfile1.idUv = cUV.IdUv;
 
             showFileList();
+
+            // check if owner for edit button
+            Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
         }
 
         private void showFileList()

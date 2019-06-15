@@ -25,7 +25,7 @@
             </div>
         </div>
         <div class="form-group">
-            <asp:Label runat="server" AssociatedControlID="Name" CssClass="col-md-2 control-label">Name</asp:Label>
+            <asp:Label runat="server" AssociatedControlID="Name" CssClass="col-md-2 control-label">Nom</asp:Label>
             <div class="col-md-10">
                 <asp:TextBox runat="server" ID="Name" CssClass="form-control"/>
                 <asp:CustomValidator ID="CustomValidator1"
@@ -54,7 +54,7 @@
         </div>
         <div class="form-group">
             <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Enregistrer" OnClick="Button_Creer_UV_Click" />
-            <asp:Button ID="Button_Annuler" runat="server" BorderStyle="None" CssClass="btn active" Text="Annuler" OnClick="Button_RedirectToListUV" />
+            <asp:Button ID="Button_Annuler" runat="server" BorderStyle="None" CssClass="btn active" Text="Annuler" OnClick="Button_Back" />
         </div>
     </div>
 
