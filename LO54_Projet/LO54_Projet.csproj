@@ -589,6 +589,7 @@
     <Compile Include="UnauthorizedAccess.aspx.designer.cs">
       <DependentUpon>UnauthorizedAccess.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utils\GetUserRole.cs" />
     <Compile Include="UVS\DetailUV.aspx.cs">
       <DependentUpon>DetailUV.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

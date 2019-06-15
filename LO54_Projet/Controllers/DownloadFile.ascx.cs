@@ -9,6 +9,8 @@ using System.Data.Entity.Validation;
 using System.Data.Entity.Infrastructure;
 using LO54_Projet.Repository;
 using LO54_Projet.Models;
+using Microsoft.AspNet.Identity;
+using LO54_Projet.Tools;
 
 namespace LO54_Projet.Controllers
 {
@@ -26,7 +28,8 @@ namespace LO54_Projet.Controllers
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!Context.User.IsInRole(UserType.Teacher.ToString()))
+            var context = new IdentityDb();
+            if (!(context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString()))
             {
                 Button2.Visible = false;
             }
