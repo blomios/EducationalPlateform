@@ -31,6 +31,11 @@ namespace LO54_Projet.Repository
             return Users.FirstOrDefault(u => u.Id == id).UserName;
         }
 
+        public string GetUserRole(string id)
+        {
+            return Users.FirstOrDefault(u => u.Id == id).Role;
+        }
+
         /// <summary>
         /// Get a User's mail throught it's ID
         /// </summary>

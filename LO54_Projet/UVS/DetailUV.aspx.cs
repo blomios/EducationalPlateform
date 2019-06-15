@@ -5,6 +5,7 @@ using LO54_Projet.Repository;
 using System;
 using System.Web;
 using Microsoft.AspNet.Identity;
+using LO54_Projet.Tools;
 
 namespace LO54_Projet.UVS
 {
@@ -19,7 +20,8 @@ namespace LO54_Projet.UVS
         {
             cUV = uvContext.GetByDenomination(Request.Params.Get("uv"));
 
-            if (!Context.User.IsInRole(UserType.Teacher.ToString()))
+            var context = new IdentityDb();
+            if (!(context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString()))
             {
                 Uploadfile1.Visible = false;
             }
