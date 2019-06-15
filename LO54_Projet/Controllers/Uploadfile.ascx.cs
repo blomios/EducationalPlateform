@@ -28,14 +28,14 @@ namespace LO54_Projet.Controllers
             //Files is folder Name
             if (Page.IsValid)
             {
-                fuSample.SaveAs(Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName);
+                Guid guid = Guid.NewGuid();
+                fuSample.SaveAs(Server.MapPath("~") + "/DataDirectory/" + guid + "_"+ fuSample.FileName);
                 lblMessage.Text = "File Successfully Uploaded";
                 lblMessage.ForeColor = System.Drawing.Color.FromArgb(54, 204, 43);
 
 
                 var context = new FileDb(); // Uv db c'est la classe qui correspond à la table en bd 
-                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + fuSample.FileName, idUv); // On créé une nouvelle UV
-                
+                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + guid + "_" + fuSample.FileName, idUv); // On créé une nouvelle UV
                 
                 lblMessage.Text = "";
                 context.Files.Add(file); // On l'ajoute à la liste d'uv de UVDB
@@ -62,7 +62,9 @@ namespace LO54_Projet.Controllers
                         }
                     }
                 }
-                
+
+                Response.Redirect(Request.RawUrl);
+
                 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
                 /* ATTENTION :                                                                                     */
                 /*                                                                                                 */

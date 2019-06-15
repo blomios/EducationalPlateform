@@ -2,6 +2,7 @@
 
 <%@ Register src="../Controllers/Uploadfile.ascx" tagname="Uploadfile" tagprefix="uc1" %>
 
+
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %></h2>
 
@@ -22,6 +23,8 @@
         <div style="text-align: left">
             <uc1:Uploadfile ID="Uploadfile1" runat="server"/>
         </div>
+        <asp:Panel ID="FileList" runat="server" Height="300px" ScrollBars="Vertical">
+        </asp:Panel>
         <asp:Button ID="Button_RedirectToListUV" runat="server" BorderStyle="None" CssClass="btn active" Text="Retour" OnClick="Button_RedirectToListUV_Click" />
     </div>
 

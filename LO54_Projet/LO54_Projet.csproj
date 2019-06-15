@@ -242,6 +242,7 @@
     <Content Include="Content\Site.css" />
     <Content Include="Controllers\AnswereForm.ascx" />
     <Content Include="Controllers\AnswereTypeForm.ascx" />
+    <Content Include="Controllers\DownloadFile.ascx" />
     <Content Include="Controllers\QuestionQuizzForm.ascx" />
     <Content Include="Controllers\Uploadfile.ascx" />
     <Content Include="Default.aspx" />
@@ -318,7 +319,9 @@
     <Content Include="UVS\FormUV.aspx" />
     <Content Include="UVS\ListUV.aspx" />
     <Content Include="ViewSwitcher.ascx" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Bundle.config" />
     <Content Include="Site.Mobile.Master" />
     <Content Include="Views\web.config" />
@@ -425,6 +428,13 @@
     </Compile>
     <Compile Include="Controllers\AnswereTypeForm.ascx.designer.cs">
       <DependentUpon>AnswereTypeForm.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\DownloadFile.ascx.cs">
+      <DependentUpon>DownloadFile.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Controllers\DownloadFile.ascx.designer.cs">
+      <DependentUpon>DownloadFile.ascx</DependentUpon>
     </Compile>
     <Compile Include="Controllers\QuestionQuizzForm.ascx.cs">
       <DependentUpon>QuestionQuizzForm.ascx</DependentUpon>
