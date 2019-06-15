@@ -25,6 +25,11 @@ namespace LO54_Projet.Repository
             return UVs.ToList().FirstOrDefault(uv => uv.Denomination == denomination);
         }
 
+        public UV GetById(int id)
+        {
+            return UVs.Find(id);
+        }
+
         public List<UV> GetLinkedUvs(string userId)
         {
             List<UV> maListe = UVs.ToList();

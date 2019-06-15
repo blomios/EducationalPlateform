@@ -10,78 +10,69 @@
 namespace LO54_Projet.UVS {
     
     
-    public partial class DetailUV {
+    public partial class FormProject {
         
         /// <summary>
-        /// Contrôle Button_Update_UV.
+        /// Contrôle ErrorMessage.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_Update_UV;
+        protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
-        /// Contrôle LB_Owner.
+        /// Contrôle Name.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LB_Owner;
+        protected global::System.Web.UI.WebControls.TextBox Name;
         
         /// <summary>
-        /// Contrôle LB_Desc.
+        /// Contrôle CustomValidator1.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LB_Desc;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidator1;
         
         /// <summary>
-        /// Contrôle Button_Add_Project.
+        /// Contrôle Description.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_Add_Project;
+        protected global::System.Web.UI.WebControls.TextBox Description;
         
         /// <summary>
-        /// Contrôle ProjectList.
+        /// Contrôle CustomValidatorDescription.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel ProjectList;
+        protected global::System.Web.UI.WebControls.CustomValidator CustomValidatorDescription;
         
         /// <summary>
-        /// Contrôle Uploadfile1.
+        /// Contrôle Button_Save.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::LO54_Projet.Controllers.Uploadfile Uploadfile1;
+        protected global::System.Web.UI.WebControls.Button Button_Save;
         
         /// <summary>
-        /// Contrôle FileList.
+        /// Contrôle Button_Annuler.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel FileList;
-        
-        /// <summary>
-        /// Contrôle Button_RedirectToListUV.
-        /// </summary>
-        /// <remarks>
-        /// Champ généré automatiquement.
-        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Button Button_RedirectToListUV;
+        protected global::System.Web.UI.WebControls.Button Button_Annuler;
     }
 }

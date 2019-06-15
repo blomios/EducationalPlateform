@@ -14,6 +14,7 @@ namespace LO54_Projet.UVS
         private static UVDb uvContext = UVDb.GetInstance();
         private static IdentityDb userContext = new IdentityDb();
         private UV cUV;
+        private ListProjects projectController;
         private DownloadFile fileController;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -21,12 +22,7 @@ namespace LO54_Projet.UVS
             cUV = uvContext.GetByDenomination(Request.Params.Get("uv"));
 
             var context = new IdentityDb();
-            if (!(context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString()))
-            {
-                Uploadfile1.Visible = false;
-            }
-            else
-                Uploadfile1.Visible = true;
+            Uploadfile1.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString();
 
             if (cUV == null)
             {
@@ -40,9 +36,18 @@ namespace LO54_Projet.UVS
             Uploadfile1.idUv = cUV.IdUv;
 
             showFileList();
+            ShowProjectList();
 
             // check if owner for edit button
             Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
+        }
+
+        private void ShowProjectList()
+        {
+            projectController = (ListProjects)Page.LoadControl("~/Projects/ListProjects.ascx");
+            projectController.uvId = cUV.IdUv;
+            projectController.clientScript = ClientScript;
+            ProjectList.Controls.Add(projectController);
         }
 
         private void showFileList()
@@ -77,6 +82,12 @@ namespace LO54_Projet.UVS
         protected void Button_Update_UV_Click(object sender, EventArgs e)
         {
             Response.Redirect("/UVS/FormUV.aspx?uv=" + cUV.Denomination, true);
+        }
+
+
+        protected void Button_Add_Project_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Projects/FormProject.aspx?uv=" + cUV.IdUv, true);
         }
     }
 }

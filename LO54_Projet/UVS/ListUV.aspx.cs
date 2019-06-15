@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using LO54_Projet.Entities;
 using LO54_Projet.Models;
 using LO54_Projet.Repository;
+using LO54_Projet.Tools;
 using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.UVS
@@ -20,7 +21,7 @@ namespace LO54_Projet.UVS
         protected void Page_Load(object sender, EventArgs e)
         {
             // TODO check if teacher for add button
-            //Button_Go_Add_UV.Visible = Context.User.IsInRole(UserType.Teacher.ToString());
+            //Button_Go_Add_UV.Visible = Context.User.IsInRole(CustomRoles.roles.Prof.ToString());
         }
 
         protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Détails de l'UV" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetailUV.aspx.cs" Inherits="LO54_Projet.UVS.DetailUV" %>
+﻿<%@ Page Title="Détails de l'UV" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="DetailUV.aspx.cs" Inherits="LO54_Projet.UVS.DetailUV" EnableEventValidation="false" %>
 
 <%@ Register src="../Controllers/Uploadfile.ascx" tagname="Uploadfile" tagprefix="uc1" %>
 
@@ -20,10 +20,24 @@
             <asp:Label runat="server" CssClass="col-md-2 control-label">Description</asp:Label>
             <asp:Label runat="server" CssClass="col-md-10 control-label" style="text-align:left" ID="LB_Desc"></asp:Label>
         </div>
+
+        <%-- Project list --%>
+        <div class="row">
+            <h3 class="col-md-6">Projets</h3>
+            <div class="col-md-6" style="text-align: right; position: relative; top: 20px">
+                <asp:Button ID="Button_Add_Project" runat="server" BorderStyle="None" CssClass="btn btn-success" Text="Ajouter un Projet" OnClick="Button_Add_Project_Click" />
+            </div>
+        </div>
+        <hr style="margin-top: 5px" />
+        <asp:Panel ID="ProjectList" runat="server" CssClass="mb-2"></asp:Panel>
+        
+        <%-- File list --%>
+        <h3>Fichiers</h3>
+        <hr />
         <div style="text-align: left">
             <uc1:Uploadfile ID="Uploadfile1" runat="server"/>
         </div>
-        <asp:Panel ID="FileList" runat="server" Height="300px" ScrollBars="Vertical">
+        <asp:Panel ID="FileList" runat="server" Height="300px" ScrollBars="Auto">
         </asp:Panel>
         <asp:Button ID="Button_RedirectToListUV" runat="server" BorderStyle="None" CssClass="btn active" Text="Retour" OnClick="Button_RedirectToListUV_Click" />
     </div>
