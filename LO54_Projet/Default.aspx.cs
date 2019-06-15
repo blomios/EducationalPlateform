@@ -4,8 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using Microsoft.AspNet.Identity;
 using System.Web.UI.WebControls;
 using LO54_Projet.UVS;
+using LO54_Projet.Tools;
 
 namespace LO54_Projet
 {
@@ -25,6 +27,8 @@ namespace LO54_Projet
          * * * * * * * * * * * * * * * * * * * * * * * * * */
         protected void Page_Load(object sender, EventArgs e)
         {
+            var context = new IdentityDb();
+            Button2.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Admin.ToString(); ;
         }
 
         protected void Button1_Click(object sender, EventArgs e)
