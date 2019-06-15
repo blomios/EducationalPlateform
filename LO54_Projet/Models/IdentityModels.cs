@@ -28,7 +28,7 @@ namespace LO54_Projet.Models
             Nom = "";
             Prenom = "";
             CustomRoles cr = new CustomRoles();
-            Role = cr.getEtud();
+            Role = cr.getProf();
         }
 
         public ApplicationUser(string nom, string prenom) : base()
