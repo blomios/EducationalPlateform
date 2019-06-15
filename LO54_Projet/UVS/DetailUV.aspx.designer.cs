@@ -58,6 +58,15 @@ namespace LO54_Projet.UVS {
         protected global::System.Web.UI.WebControls.Panel ProjectList;
         
         /// <summary>
+        /// Contrôle QuizzPanel.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel QuizzPanel;
+        
+        /// <summary>
         /// Contrôle Uploadfile1.
         /// </summary>
         /// <remarks>

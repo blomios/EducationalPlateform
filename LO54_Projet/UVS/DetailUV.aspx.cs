@@ -16,6 +16,7 @@ namespace LO54_Projet.UVS
         private UV cUV;
         private ListProjects projectController;
         private DownloadFile fileController;
+        private ListQuizzes quizzController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -50,6 +51,14 @@ namespace LO54_Projet.UVS
             projectController.uvId = cUV.IdUv;
             projectController.clientScript = ClientScript;
             ProjectList.Controls.Add(projectController);
+        }
+
+        private void ShowQuizzesList()
+        {
+            quizzController = (ListQuizzes)Page.LoadControl("~/QUIZZ/ListQuizzes.ascx");
+            quizzController.uvId = cUV.IdUv;
+            quizzController.clientScript = ClientScript;
+            QuizzPanel.Controls.Add(projectController);
         }
 
         private void showFileList()
