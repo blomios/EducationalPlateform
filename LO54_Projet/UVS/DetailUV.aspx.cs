@@ -22,7 +22,7 @@ namespace LO54_Projet.UVS
             cUV = uvContext.GetByDenomination(Request.Params.Get("uv"));
 
             var context = new IdentityDb();
-            Uploadfile1.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Etud.ToString();
+            Uploadfile1.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString();
 
             if (cUV == null)
             {
@@ -41,6 +41,7 @@ namespace LO54_Projet.UVS
 
             // check if owner for edit button
             Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
+            Button_Add_Project.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
         }
 
         private void ShowProjectList()
