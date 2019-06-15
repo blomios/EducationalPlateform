@@ -40,6 +40,24 @@ namespace LO54_Projet.UVS {
         protected global::System.Web.UI.WebControls.Label LB_Desc;
         
         /// <summary>
+        /// Contrôle Uploadfile1.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::LO54_Projet.Controllers.Uploadfile Uploadfile1;
+        
+        /// <summary>
+        /// Contrôle FileList.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Panel FileList;
+        
+        /// <summary>
         /// Contrôle Button_RedirectToDetailUV.
         /// </summary>
         /// <remarks>

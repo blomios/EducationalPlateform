@@ -17,7 +17,8 @@ namespace LO54_Projet.Controllers
 {
     public partial class Uploadfile : System.Web.UI.UserControl
     {
-        public int idUv;
+        public int id;
+        public FileType fileType;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -35,7 +36,7 @@ namespace LO54_Projet.Controllers
 
 
                 var context = new FileDb(); // Uv db c'est la classe qui correspond à la table en bd 
-                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + guid + "_" + fuSample.FileName, idUv); // On créé une nouvelle UV
+                File file = new File(fuSample.FileName, Server.MapPath("~") + "/DataDirectory/" + guid + "_" + fuSample.FileName, id, fileType); // On créé une nouvelle UV
                 
                 lblMessage.Text = "";
                 context.Files.Add(file); // On l'ajoute à la liste d'uv de UVDB

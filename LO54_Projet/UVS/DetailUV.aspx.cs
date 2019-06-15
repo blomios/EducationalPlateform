@@ -22,7 +22,7 @@ namespace LO54_Projet.UVS
             cUV = uvContext.GetByDenomination(Request.Params.Get("uv"));
 
             var context = new IdentityDb();
-            Uploadfile1.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString();
+            Uploadfile1.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Etud.ToString();
 
             if (cUV == null)
             {
@@ -33,7 +33,8 @@ namespace LO54_Projet.UVS
             Page.Title = cUV.Denomination + ": " + cUV.Name;
             LB_Owner.Text = userContext.GetUsername(cUV.Owner);
             LB_Desc.Text = cUV.Description;
-            Uploadfile1.idUv = cUV.IdUv;
+            Uploadfile1.id = cUV.IdUv;
+            Uploadfile1.fileType = FileType.UV;
 
             showFileList();
             ShowProjectList();
@@ -56,7 +57,7 @@ namespace LO54_Projet.UVS
             foreach(File f in context.Files)
             {
                 
-                if (f.idUv == cUV.IdUv)
+                if (f.idUv == cUV.IdUv && f.fileType == FileType.UV)
                 {
                     showFile(f);
                 }

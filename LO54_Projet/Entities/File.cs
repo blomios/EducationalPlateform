@@ -4,6 +4,13 @@ using System.Text.RegularExpressions;
 
 namespace LO54_Projet.Entities
 {
+
+    public enum FileType
+    {
+        UV,
+        Project
+    }
+
     public class File
     {
         [Key]
@@ -16,15 +23,19 @@ namespace LO54_Projet.Entities
         public string FilePath { get; set; }
 
         [Required]
+        public FileType fileType { get; set; }
+
         public int idUv { get; set; }
 
         public File() { }
 
-        public File(string Name, string FilePath, int idUv)
+        public File(string Name, string FilePath, int id, FileType ft)
         {
             this.Name = Name;
             this.FilePath = FilePath;
-            this.idUv = idUv;
+            fileType = ft;
+            idUv = id;
+            
         }
     }
 }

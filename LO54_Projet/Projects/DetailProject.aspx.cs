@@ -14,7 +14,7 @@ namespace LO54_Projet.UVS
         private static UVDb uvContext = UVDb.GetInstance();
         private static IdentityDb userContext = new IdentityDb();
         private Project cProject;
-        //private DownloadFile fileController;
+        private DownloadFile fileController;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -25,7 +25,8 @@ namespace LO54_Projet.UVS
                 Page.Title = "Project: " + cProject.Name;
                 LB_Owner.Text = userContext.GetUsername(cProject.OwnerId);
                 LB_Desc.Text = cProject.Description;
-                //Uploadfile1.idUv = cUV.IdUv;
+                Uploadfile1.id = cProject.IdProject;
+                Uploadfile1.fileType = FileType.Project;
             }
             catch (Exception)
             {
@@ -40,7 +41,7 @@ namespace LO54_Projet.UVS
             }
             // else
 
-            //showFileList();
+            showFileList();
 
             // check if owner for edit button
             Button_Update.Visible = Context.User.Identity.GetUserId() == cProject.OwnerId;
@@ -48,26 +49,26 @@ namespace LO54_Projet.UVS
 
         private void showFileList()
         {
-            //var context = new FileDb();
-            //foreach(File f in context.Files)
-            //{
-                
-            //    if (f.idUv == cUV.IdUv)
-            //    {
-            //        showFile(f);
-            //    }
-            //}
+            var context = new FileDb();
+            foreach (File f in context.Files)
+            {
+
+                if (f.idUv == cProject.IdProject && f.fileType == FileType.Project)
+                {
+                    showFile(f);
+                }
+            }
         }
 
         private void showFile(File file)
         {
-            //fileController = (DownloadFile)Page.LoadControl("~/Controllers/DownloadFile.ascx");
+            fileController = (DownloadFile)Page.LoadControl("~/Controllers/DownloadFile.ascx");
 
-            //fileController.fileName = file.Name;
-            //fileController.filePath = file.FilePath;
-            //fileController.fileID = file.IdFile;
-            //fileController.setFileName(file.Name);
-            //FileList.Controls.Add(fileController);
+            fileController.fileName = file.Name;
+            fileController.filePath = file.FilePath;
+            fileController.fileID = file.IdFile;
+            fileController.setFileName(file.Name);
+            FileList.Controls.Add(fileController);
         }
         
         protected void Button_RedirectToDetailUV_Click(object sender, EventArgs e)
