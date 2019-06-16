@@ -520,7 +520,6 @@
     </Compile>
     <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\AnswereType.cs" />
-    <Compile Include="Entities\inscripition.cs" />
     <Compile Include="Entities\File.cs" />
     <Compile Include="Entities\Project.cs" />
     <Compile Include="Entities\Question.cs" />
