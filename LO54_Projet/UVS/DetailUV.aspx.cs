@@ -42,8 +42,10 @@ namespace LO54_Projet.UVS
             ShowProjectList();
 
             // check if owner for edit button
-            Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
-            Button_Add_Project.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
+            bool isOwner = Context.User.Identity.GetUserId() == cUV.Owner;
+            Button_Update_UV.Visible = isOwner;
+            Button_Add_Project.Visible = isOwner;
+            Button_Add_Teacher.Visible = isOwner;
         }
 
         private void ShowProjectList()
@@ -100,6 +102,11 @@ namespace LO54_Projet.UVS
         protected void Button_Add_Project_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Projects/FormProject.aspx?uv=" + cUV.IdUv, true);
+        }
+
+        protected void Button_Add_Teacher_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/UVS/AddTeacherUV.aspx?uv=" + cUV.Denomination, true);
         }
     }
 }

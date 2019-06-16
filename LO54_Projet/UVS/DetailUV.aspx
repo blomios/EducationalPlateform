@@ -8,7 +8,8 @@
 
     <div class="form-horizontal">
         <div style="text-align: right">
-            <asp:Button ID="Button_Update_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Modifier" OnClick="Button_Update_UV_Click" />
+            <asp:Button ID="Button_Update_UV" runat="server" BorderStyle="None" CssClass="btn btn-warning" Text="Modifier" OnClick="Button_Update_UV_Click" />
+            <asp:Button ID="Button_Add_Teacher" runat="server" BorderStyle="None" CssClass="btn btn-success" Text="Ajouter responsable" OnClick="Button_Add_Teacher_Click" />
         </div>
         <h3>Informations</h3>
         <hr />
@@ -20,6 +21,21 @@
             <asp:Label runat="server" CssClass="col-md-2 control-label">Description</asp:Label>
             <asp:Label runat="server" CssClass="col-md-10 control-label" style="text-align:left" ID="LB_Desc"></asp:Label>
         </div>
+        
+        <%-- File list --%>
+        <h3>Fichiers</h3>
+        <hr />
+        <div style="text-align: left">
+            <uc1:Uploadfile ID="Uploadfile1" runat="server"/>
+        </div>
+        <asp:Panel ID="FileList" runat="server">
+        </asp:Panel>
+
+         <%-- QCM list --%>
+        <h3>Quizzes</h3>
+        <hr />
+        <asp:Panel ID="QuizzPanel" runat="server">
+        </asp:Panel>
 
         <%-- Project list --%>
         <div class="row">
@@ -30,22 +46,8 @@
         </div>
         <hr style="margin-top: 5px" />
         <asp:Panel ID="ProjectList" runat="server" CssClass="mb-2"></asp:Panel>
-
-         <%-- QCM list --%>
-        <h3>Quizzes</h3>
-        <hr />
-        <asp:Panel ID="QuizzPanel" runat="server" Height="300px" ScrollBars="Auto">
-        </asp:Panel>
         
-        <%-- File list --%>
-        <h3>Fichiers</h3>
-        <hr />
-        <div style="text-align: left">
-            <uc1:Uploadfile ID="Uploadfile1" runat="server"/>
-        </div>
-        <asp:Panel ID="FileList" runat="server" Height="300px" ScrollBars="Auto">
-        </asp:Panel>
-        <asp:Button ID="Button_RedirectToListUV" runat="server" BorderStyle="None" CssClass="btn active" Text="Retour" OnClick="Button_RedirectToListUV_Click" />
+        <asp:Button ID="Button_RedirectToListUV" runat="server" BorderStyle="None" CssClass="btn btn-danger" Text="Retour" OnClick="Button_RedirectToListUV_Click" />
     </div>
 
 </asp:Content>
