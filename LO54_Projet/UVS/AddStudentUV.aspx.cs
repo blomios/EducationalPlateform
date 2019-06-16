@@ -9,6 +9,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Text.RegularExpressions;
+using LO54_Projet.Repository;
+using LO54_Projet.Entities;
 
 namespace LO54_Projet.UVS
 {
@@ -26,12 +28,12 @@ namespace LO54_Projet.UVS
             {
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
-                string prenom="";
-                string nom="";
+                string prenom = "";
+                string nom = "";
                 //string email;
                 //string pwd;
-                try
-                {
+                //try
+                //{
                     string filename = Path.GetFileName(FileUploadControl.FileName);
                     FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
                     StatusLabel.Text = "Upload status: File uploaded!";
@@ -43,7 +45,8 @@ namespace LO54_Projet.UVS
                         //continue;
                         Regex regex = new Regex(@"(?<=;)(\w*)(?=;)");
                         MatchCollection match = regex.Matches(line);
-                        if (match.Count != 2){
+                        if (match.Count != 2)
+                        {
                             continue;
                         }
                         int i = 0;
@@ -58,24 +61,31 @@ namespace LO54_Projet.UVS
                         Regex rxemail = new Regex(@"^([^;]+)(?=;)");
                         Match memail = rxemail.Match(line);
                         //StatusLabel.Text = " " + prenom + " " + nom + " " + mpwd.Value;
-                        var user = new ApplicationUser(nom,prenom ) { UserName = prenom + " " + nom, Email =memail.Value  }; ;
-                        IdentityResult result = manager.Create(user,mpwd.Value );
+                        var user = new ApplicationUser(nom, prenom) { UserName = prenom + " " + nom, Email = memail.Value }; ;
+                        IdentityResult result = manager.Create(user, mpwd.Value);
                         if (result.Succeeded)
                         {
-                            
+                            //Regex rxc = new Regex(@"^([^;]+)(?=;)");
+                            //Match mc = rxc.Match(filename);
+                            UVDb u = new UVDb();
+                            UV uv = u.GetByDenomination("GL52");
+                            IdentityDb id = new IdentityDb();
+                            id.AddUV(user.Id, uv);
                         }
                         else
                         {
                             ErrorMessage.Text = result.Errors.FirstOrDefault();
                         }
+
                     }
 
-                }
-                catch (Exception ex)
-                {
-                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                }
-            }   
+                
+                //catch (Exception ex)
+                //{
+                //    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                //}
+                
+            }
         }
         protected void Button_Redirect(object sender, EventArgs e)
         {

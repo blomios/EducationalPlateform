@@ -545,6 +545,10 @@
     <Compile Include="Repository\IdentityMigrations\201905061904429_AfterMerge1.Designer.cs">
       <DependentUpon>201905061904429_AfterMerge1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Repository\IdentityMigrations\201906160831515_MigrationName.cs" />
+    <Compile Include="Repository\IdentityMigrations\201906160831515_MigrationName.Designer.cs">
+      <DependentUpon>201906160831515_MigrationName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Repository\IdentityMigrations\Configuration.cs" />
     <Compile Include="Repository\QuestionDb.cs" />
     <Compile Include="Repository\QuizzDb.cs" />
@@ -565,6 +569,10 @@
     <Compile Include="Repository\UVMigrations\201905061759085_Update 2.cs" />
     <Compile Include="Repository\UVMigrations\201905061759085_Update 2.Designer.cs">
       <DependentUpon>201905061759085_Update 2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Repository\UVMigrations\201906160946031_UV NAME.cs" />
+    <Compile Include="Repository\UVMigrations\201906160946031_UV NAME.Designer.cs">
+      <DependentUpon>201906160946031_UV NAME.cs</DependentUpon>
     </Compile>
     <Compile Include="Repository\UVMigrations\Configuration.cs" />
     <Compile Include="Site.Master.cs">
@@ -687,6 +695,9 @@
     <EmbeddedResource Include="Repository\IdentityMigrations\201905061904429_AfterMerge1.resx">
       <DependentUpon>201905061904429_AfterMerge1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Repository\IdentityMigrations\201906160831515_MigrationName.resx">
+      <DependentUpon>201906160831515_MigrationName.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Repository\UVMigrations\201904261320291_InitialCreate.resx">
       <DependentUpon>201904261320291_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
@@ -698,6 +709,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Repository\UVMigrations\201905061759085_Update 2.resx">
       <DependentUpon>201905061759085_Update 2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Repository\UVMigrations\201906160946031_UV NAME.resx">
+      <DependentUpon>201906160946031_UV NAME.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
