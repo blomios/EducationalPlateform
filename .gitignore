@@ -259,3 +259,21 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/LO54_Projet/DataContexts/FileMigrations/201906161611001_InitialCreate.cs
+/LO54_Projet/DataContexts/FileMigrations/201906161611001_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/FileMigrations/201906161611001_InitialCreate.resx
+/LO54_Projet/DataContexts/IdentityMigrations/201906161610159_InitialCreate.resx
+/LO54_Projet/DataContexts/IdentityMigrations/201906161610159_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/IdentityMigrations/201906161610159_InitialCreate.cs
+/LO54_Projet/DataContexts/ProjectMigrations/201906161613058_InitialCreate.resx
+/LO54_Projet/DataContexts/ProjectMigrations/201906161613058_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/ProjectMigrations/201906161613058_InitialCreate.cs
+/LO54_Projet/DataContexts/QuestionMigrations/201906161611487_InitialCreate.resx
+/LO54_Projet/DataContexts/QuestionMigrations/201906161611487_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/QuestionMigrations/201906161611487_InitialCreate.cs
+/LO54_Projet/DataContexts/QuizzMigrations/201906161615083_InitialCreate.resx
+/LO54_Projet/DataContexts/QuizzMigrations/201906161615083_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/QuizzMigrations/201906161615083_InitialCreate.cs
+/LO54_Projet/DataContexts/UVMigrations/201906161614079_InitialCreate.resx
+/LO54_Projet/DataContexts/UVMigrations/201906161614079_InitialCreate.Designer.cs
+/LO54_Projet/DataContexts/UVMigrations/201906161614079_InitialCreate.cs

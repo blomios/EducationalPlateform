@@ -26,6 +26,8 @@ namespace LO54_Projet.Entities
         [ForeignKey("IdQuizz")]
         public List<Question> Questions { get; set; }
 
+        public Quizz() { }
+
         public Quizz(string name, int linkedUV)
         {
             Name = name;

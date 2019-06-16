@@ -5,6 +5,8 @@ using System.Web;
 using Microsoft.AspNet.Identity.EntityFramework;
 using LO54_Projet.Models;
 using System.Web.Providers.Entities;
+using LO54_Projet.Entities;
+using System.Data.Entity;
 
 namespace LO54_Projet.Repository
 {
@@ -26,14 +28,33 @@ namespace LO54_Projet.Repository
             return Instance;
         }
 
+        public ApplicationUser GetById(string id)
+        {
+            return Users.Find(id);
+        }
+
+        public ApplicationUser GetByIdEager(string id)
+        {
+            return Users.Include(u => u.UserSharedUVs)
+                        .Where(u => u.Id == id)
+                        .FirstOrDefault();
+        }
+
+        public ApplicationUser GetByEmailEager(string email)
+        {
+            return Users.Include(u => u.UserSharedUVs)
+                        .Where(u => u.Email == email)
+                        .FirstOrDefault();
+        }
+
         public string GetUsername(string id)
         {
-            return Users.FirstOrDefault(u => u.Id == id).UserName;
+            return GetById(id).UserName;
         }
 
         public string GetUserRole(string id)
         {
-            return Users.FirstOrDefault(u => u.Id == id).Role;
+            return GetById(id).Role;
         }
 
         /// <summary>
@@ -46,6 +67,11 @@ namespace LO54_Projet.Repository
             return this.Users.FirstOrDefault(u => u.Id == userId).Email;
         }
         
-        
+        public void AddSharedUV(string userId, int uvId)
+        {
+            ApplicationUser user = GetByIdEager(userId);
+            user.UserSharedUVs.Add(new UserSharedUV(userId, uvId));
+            SaveChanges();
+        }
     }
 }

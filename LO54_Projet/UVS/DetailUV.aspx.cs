@@ -38,11 +38,14 @@ namespace LO54_Projet.UVS
             Uploadfile1.fileType = FileType.UV;
 
             showFileList();
+            ShowQuizzesList();
             ShowProjectList();
 
             // check if owner for edit button
-            Button_Update_UV.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
-            Button_Add_Project.Visible = Context.User.Identity.GetUserId() == cUV.Owner;
+            bool isOwner = Context.User.Identity.GetUserId() == cUV.Owner;
+            Button_Update_UV.Visible = isOwner;
+            Button_Add_Project.Visible = isOwner;
+            Button_Add_Teacher.Visible = isOwner;
         }
 
         private void ShowProjectList()
@@ -58,7 +61,7 @@ namespace LO54_Projet.UVS
             quizzController = (ListQuizzes)Page.LoadControl("~/QUIZZ/ListQuizzes.ascx");
             quizzController.uvId = cUV.IdUv;
             quizzController.clientScript = ClientScript;
-            QuizzPanel.Controls.Add(projectController);
+            QuizzPanel.Controls.Add(quizzController);
         }
 
         private void showFileList()
@@ -99,6 +102,11 @@ namespace LO54_Projet.UVS
         protected void Button_Add_Project_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Projects/FormProject.aspx?uv=" + cUV.IdUv, true);
+        }
+
+        protected void Button_Add_Teacher_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/UVS/AddTeacherUV.aspx?uv=" + cUV.Denomination, true);
         }
     }
 }

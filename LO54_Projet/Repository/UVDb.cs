@@ -46,6 +46,7 @@ namespace LO54_Projet.Repository
         {
             UVs.Add(uv);
             SaveChanges();
+            IdentityDb.GetInstance().AddSharedUV(uv.Owner, uv.IdUv);
         }
 
         public void Update(UV uv)

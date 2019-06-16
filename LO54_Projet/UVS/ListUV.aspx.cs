@@ -17,17 +17,22 @@ namespace LO54_Projet.UVS
     public partial class ListUV : System.Web.UI.Page
     {
         private UVDb uvDb = UVDb.GetInstance();
+        private IdentityDb identityDb = IdentityDb.GetInstance();
+
+        private ApplicationUser currentUser;
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // TODO check if teacher for add button
-            //Button_Go_Add_UV.Visible = Context.User.IsInRole(CustomRoles.roles.Prof.ToString());
+            currentUser = identityDb.GetByIdEager(Context.User.Identity.GetUserId());
+            Button_Go_Add_UV.Visible = currentUser.Role == CustomRoles.roles.Prof.ToString();
+
         }
 
         protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
+                e.Row.Visible = currentUser.HasAccessToUV(int.Parse(DataBinder.Eval(e.Row.DataItem, "IdUv").ToString()));
                 bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "OwnerId").ToString());
 
                 // display action buttons if user is owner

@@ -21,9 +21,9 @@ namespace LO54_Projet.Controllers
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[LinkedUV_idUv]"
-                                                   + " FROM[Quizzs] p INNER JOIN[AspNetUsers] usr ON p.ownerId = usr.id"
-                                                   + " WHERE p.IdUV = " + uvId;
+            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv]"
+                                                   + " FROM[Quizzs] p"
+                                                   + " WHERE p.idUV = " + uvId;
         }
 
         protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)
@@ -50,8 +50,8 @@ namespace LO54_Projet.Controllers
         protected void GridView_OnSelectedIndexChanged(object sender, EventArgs e)
         {
             //string projectId = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Cells[0].Text;
-            string projectId = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Attributes["idProject"];
-            Response.Redirect("/Projects/DetailProject.aspx?project=" + projectId, true);
+            string IdQuizz = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Attributes["IdQuizz"];
+            Response.Redirect("/QUIZZ/DetailQuizz.aspx?quizz=" + IdQuizz, true);
         }
 
         protected void GridView_OnRowCommand(object sender, GridViewCommandEventArgs e)
@@ -60,7 +60,7 @@ namespace LO54_Projet.Controllers
             {
                 case "edit":
                     // go to formProject
-                    Response.Redirect("/Projects/FormProject.aspx?uv=" + uvId + "&project=" + e.CommandArgument, true);
+                    //Response.Redirect("/Projects/FormProject.aspx?uv=" + uvId + "&project=" + e.CommandArgument, true);
                     break;
 
                 case "del":

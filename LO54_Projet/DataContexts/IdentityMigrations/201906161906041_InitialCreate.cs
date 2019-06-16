@@ -78,20 +78,53 @@ namespace LO54_Projet.DataContexts.IdentityMigrations
                 .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
                 .Index(t => t.UserId);
             
+            CreateTable(
+                "dbo.UserSharedUVs",
+                c => new
+                    {
+                        UserId = c.String(nullable: false, maxLength: 128),
+                        UVId = c.Int(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.UserId, t.UVId })
+                .ForeignKey("dbo.AspNetUsers", t => t.UserId, cascadeDelete: true)
+                .ForeignKey("dbo.UVs", t => t.UVId, cascadeDelete: true)
+                .Index(t => t.UserId)
+                .Index(t => t.UVId);
+            
+            CreateTable(
+                "dbo.UVs",
+                c => new
+                    {
+                        IdUv = c.Int(nullable: false, identity: true),
+                        Denomination = c.String(nullable: false, maxLength: 4),
+                        Name = c.String(nullable: false),
+                        Description = c.String(),
+                        Owner = c.String(nullable: false),
+                    })
+                .PrimaryKey(t => t.IdUv)
+                .Index(t => t.Denomination, unique: true);
+            
         }
         
         public override void Down()
         {
+            DropForeignKey("dbo.UserSharedUVs", "UVId", "dbo.UVs");
+            DropForeignKey("dbo.UserSharedUVs", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserClaims", "UserId", "dbo.AspNetUsers");
             DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropIndex("dbo.UVs", new[] { "Denomination" });
+            DropIndex("dbo.UserSharedUVs", new[] { "UVId" });
+            DropIndex("dbo.UserSharedUVs", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "UserId" });
             DropIndex("dbo.AspNetUsers", "UserNameIndex");
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetRoles", "RoleNameIndex");
+            DropTable("dbo.UVs");
+            DropTable("dbo.UserSharedUVs");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
             DropTable("dbo.AspNetUsers");

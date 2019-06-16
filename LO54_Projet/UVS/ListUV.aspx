@@ -30,7 +30,7 @@
             <RowStyle BackColor="#F7F6F3" />
         </asp:GridView>
         <asp:SqlDataSource ID="SqlDataSource_UVs" runat="server" ConnectionString="<%$ ConnectionStrings:TestReel %>" 
-            SelectCommand="SELECT uv.[Denomination], uv.[Name], uv.[Description], usr.[Email], uv.[Owner] AS OwnerId 
+            SelectCommand="SELECT uv.[IdUv], uv.[Denomination], uv.[Name], uv.[Description], usr.[Email], uv.[Owner] AS OwnerId 
                            FROM [UVs] uv INNER JOIN [AspNetUsers] usr ON uv.owner = usr.id ">
         </asp:SqlDataSource>
     </div>
