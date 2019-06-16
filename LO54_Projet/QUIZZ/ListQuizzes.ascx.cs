@@ -17,6 +17,7 @@ namespace LO54_Projet.Controllers
     public partial class ListQuizzes : System.Web.UI.UserControl
     {
         public ClientScriptManager clientScript;
+        private QuizzDb quizzContext = QuizzDb.GetInstance();
         public int uvId;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -65,7 +66,7 @@ namespace LO54_Projet.Controllers
 
                 case "del":
                     // delete and refresh
-                    delete();
+                    quizzContext.Delete(e.CommandArgument.ToString());
                     this.Response.Redirect(Request.RawUrl);
                     break;
             }
@@ -74,7 +75,7 @@ namespace LO54_Projet.Controllers
 
         protected void delete()
         {
-            //TODO
+            
         }
 
         protected bool IsOwner(string ownerId)

@@ -42,5 +42,11 @@ namespace LO54_Projet.Repository
         {
             return Instance;
         }
+
+        public void Delete(string id)
+        {
+            Quizzes.Remove(GetByIdString(id));
+            SaveChanges();
+        }
     }
 }
