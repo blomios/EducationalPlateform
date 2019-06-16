@@ -41,6 +41,10 @@ namespace LO54_Projet.UVS
                     System.IO.StreamReader file =
                     new System.IO.StreamReader(Server.MapPath("~/") + filename);
                     IdentityDb id = new IdentityDb();
+                    Regex rxc = new Regex(@"^([^.]+)(?=[.])");
+                    Match mc = rxc.Match(filename);
+                    UVDb u = new UVDb();
+                    UV uv = u.GetByDenomination(mc.Value);
                     while ((line = file.ReadLine()) != null)
                     {
                         //continue;
@@ -61,29 +65,33 @@ namespace LO54_Projet.UVS
                         Match mpwd = rx.Match(line);
                         Regex rxemail = new Regex(@"^([^;]+)(?=;)");
                         Match memail = rxemail.Match(line);
-                        //StatusLabel.Text = " " + prenom + " " + nom + " " + mpwd.Value;
+                        
+
+                       
                         var user = new ApplicationUser(nom, prenom) { UserName = prenom + " " + nom, Email = memail.Value }; ;
+                        if (id.Users.FirstOrDefault(usr => usr.UserName == user.UserName) == null){
                         IdentityResult result = manager.Create(user, mpwd.Value);
                         if (result.Succeeded)
                         {
-                            Regex rxc = new Regex(@"^([^.]+)(?=[.])");
-                            Match mc = rxc.Match(filename);
-                            UVDb u = new UVDb();
-                            //Console.WriteLine(mc.Value);
-                            UV uv = u.GetByDenomination(mc.Value);
-                            //StatusLabel.Text =  mc.Value;
                             
                             id.AddUV(user.Id, uv.IdUv);
-                            ApplicationUser usr = id.Users.Find(user.Id);
-                            StatusLabel.Text = usr.UserName + " " + usr.ListUV[0];
+                            
                         }
                         else
                         {
                             ErrorMessage.Text = result.Errors.FirstOrDefault();
                             
                         }
+                        }
+                        else
+                        {
+                            ApplicationUser us = id.Users.FirstOrDefault(usr => usr.UserName == user.UserName);
+                            id.AddUV(us.Id, uv.IdUv);
+                            StatusLabel.Text = id.Users.Find(us.Id).UserName + "   " + id.Users.Find(us.Id).ListUV[0] + "  " ;
+                        }
+                        
                     }
-
+                    
 
 
                 }

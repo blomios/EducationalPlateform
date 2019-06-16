@@ -465,6 +465,10 @@
     <Compile Include="DataContexts\IdentityMigrations\201906161319164_InitialCreate.Designer.cs">
       <DependentUpon>201906161319164_InitialCreate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataContexts\IdentityMigrations\201906161744121_update.cs" />
+    <Compile Include="DataContexts\IdentityMigrations\201906161744121_update.Designer.cs">
+      <DependentUpon>201906161744121_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
     <Compile Include="DataContexts\QuestionMigrations\201906161317129_InitialCreate.cs" />
     <Compile Include="DataContexts\QuestionMigrations\201906161317129_InitialCreate.Designer.cs">
@@ -491,7 +495,6 @@
     <Compile Include="Entities\Answere.cs" />
     <Compile Include="Entities\AnswereType.cs" />
     <Compile Include="Entities\File.cs" />
-    <Compile Include="Entities\inscripition.cs" />
     <Compile Include="Entities\Question.cs" />
     <Compile Include="Entities\Quizz.cs" />
     <Compile Include="Entities\UV.cs" />
@@ -670,6 +673,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\IdentityMigrations\201906161319164_InitialCreate.resx">
       <DependentUpon>201906161319164_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="DataContexts\IdentityMigrations\201906161744121_update.resx">
+      <DependentUpon>201906161744121_update.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="DataContexts\QuestionMigrations\201906161317129_InitialCreate.resx">
       <DependentUpon>201906161317129_InitialCreate.cs</DependentUpon>

@@ -11,15 +11,17 @@ namespace LO54_Projet.Entities
     public class inscripition
     {
         [Key]
-        public ApplicationUser user { get; set; }
+        public int IdInscription { get; set; }
+
+        public String IdUser { get; set; }
 
         [Required]
-        public List<UV> listUV { get; set; }
+        public UV uv { get; set; }
 
-        public inscripition(ApplicationUser user, List<UV> listUV)
+        public inscripition(String userid, UV uv)
         {
-            this.user = user;
-            this.listUV = listUV;
+            this.IdUser = userid;
+            this.uv = uv;
         }
     }
 }
