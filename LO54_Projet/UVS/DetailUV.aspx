@@ -30,6 +30,12 @@
         </div>
         <hr style="margin-top: 5px" />
         <asp:Panel ID="ProjectList" runat="server" CssClass="mb-2"></asp:Panel>
+
+         <%-- QCM list --%>
+        <h3>Quizzes</h3>
+        <hr />
+        <asp:Panel ID="QuizzPanel" runat="server" Height="300px" ScrollBars="Auto">
+        </asp:Panel>
         
         <%-- File list --%>
         <h3>Fichiers</h3>

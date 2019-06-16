@@ -39,7 +39,7 @@ namespace LO54_Projet.Repository
                 eMail = identityDbContext.getUserMail(userId);
             }
 
-            return maListe.FindAll(u => u.Owner.Equals(eMail));
+            return maListe.FindAll(u => u.Owner.Equals(userId));
         }
 
         public void Save(UV uv)

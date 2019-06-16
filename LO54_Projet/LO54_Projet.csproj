@@ -256,6 +256,7 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="QUIZZ\ListQuizzes.ascx" />
     <Content Include="QUIZZ\WebForm1.aspx" />
     <Content Include="QUIZZ\CreateQuizz.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -538,6 +539,13 @@
     <Compile Include="Models\UserType.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QUIZZ\ListQuizzes.ascx.cs">
+      <DependentUpon>ListQuizzes.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="QUIZZ\ListQuizzes.ascx.designer.cs">
+      <DependentUpon>ListQuizzes.ascx</DependentUpon>
+    </Compile>
     <Compile Include="QUIZZ\WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
