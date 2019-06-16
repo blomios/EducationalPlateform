@@ -108,5 +108,10 @@ namespace LO54_Projet.UVS
         {
             Response.Redirect("/UVS/AddTeacherUV.aspx?uv=" + cUV.Denomination, true);
         }
+
+        protected void Button_AddQuizz_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/QUIZZ/CreateQuizz.aspx", true);
+        }
     }
 }

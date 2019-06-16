@@ -32,9 +32,13 @@
         </asp:Panel>
 
          <%-- QCM list --%>
-        <h3>Quizzes</h3>
-        <hr />
-        <asp:Panel ID="QuizzPanel" runat="server">
+        <div class="row">
+            <h3 class="col-md-6">Quizzes</h3>
+            <div class="col-md-6" style="text-align: right; position: relative; top: 20px">
+                <asp:Button ID="Button_AddQuizz" runat="server" BorderStyle="None" CssClass="btn btn-success" Text="Ajouter un quizz" OnClick="Button_AddQuizz_Click" />
+            </div>
+        </div>
+        <asp:Panel ID="QuizzPanel" runat="server" CssClass="mb-2">
         </asp:Panel>
 
         <%-- Project list --%>
