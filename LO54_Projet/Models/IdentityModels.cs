@@ -9,8 +9,6 @@ using Microsoft.Owin.Security;
 using LO54_Projet.Models;
 using LO54_Projet.Tools;
 using System.ComponentModel.DataAnnotations;
-using System.Collections.Generic;
-using LO54_Projet.Entities;
 
 namespace LO54_Projet.Models
 {
@@ -22,9 +20,8 @@ namespace LO54_Projet.Models
         [Required]
         public string Prenom { get; set; }
         [Required]
-        public string Role { get; set; }
-        [Required]
-        public List<UV> ListUV { get; set; }
+        public string Role { get; set; } 
+
 
         public ApplicationUser() : base()
         {
@@ -32,7 +29,6 @@ namespace LO54_Projet.Models
             Prenom = "";
             CustomRoles cr = new CustomRoles();
             Role = cr.getEtud();
-            ListUV = new List<UV>();
         }
 
         public ApplicationUser(string nom, string prenom) : base()
@@ -42,7 +38,6 @@ namespace LO54_Projet.Models
 
             CustomRoles cr = new CustomRoles();
             Role = cr.getEtud();
-            ListUV = new List<UV>();
         }
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)

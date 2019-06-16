@@ -1,6 +1,4 @@
-﻿using LO54_Projet.Models;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
@@ -19,8 +17,6 @@ namespace LO54_Projet.Entities
         public string Description { get; set; }
         [Required]
         public string Owner { get; set; }
-
-        
 
         public UV() {}
 
