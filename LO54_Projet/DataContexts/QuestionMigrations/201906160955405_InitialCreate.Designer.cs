@@ -13,7 +13,7 @@ namespace LO54_Projet.DataContexts.QuestionMigrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201906151723410_InitialCreate"; }
+            get { return "201906160955405_InitialCreate"; }
         }
         
         string IMigrationMetadata.Source

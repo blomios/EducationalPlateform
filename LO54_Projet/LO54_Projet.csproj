@@ -434,39 +434,39 @@
     <Compile Include="Controllers\AnswereTypeForm.ascx.designer.cs">
       <DependentUpon>AnswereTypeForm.ascx</DependentUpon>
     </Compile>
-    <Compile Include="DataContexts\AnswereMigrations\201906151723573_InitialCreate.cs" />
-    <Compile Include="DataContexts\AnswereMigrations\201906151723573_InitialCreate.Designer.cs">
-      <DependentUpon>201906151723573_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\AnswereMigrations\201906160955548_InitialCreate.cs" />
+    <Compile Include="DataContexts\AnswereMigrations\201906160955548_InitialCreate.Designer.cs">
+      <DependentUpon>201906160955548_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\AnswereMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\FileMigrations\201906151723048_InitialCreate.cs" />
-    <Compile Include="DataContexts\FileMigrations\201906151723048_InitialCreate.Designer.cs">
-      <DependentUpon>201906151723048_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\FileMigrations\201906160955268_InitialCreate.cs" />
+    <Compile Include="DataContexts\FileMigrations\201906160955268_InitialCreate.Designer.cs">
+      <DependentUpon>201906160955268_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\FileMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201906151722287_InitialCreate.cs" />
-    <Compile Include="DataContexts\IdentityMigrations\201906151722287_InitialCreate.Designer.cs">
-      <DependentUpon>201906151722287_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\IdentityMigrations\201906160955125_InitialCreate.cs" />
+    <Compile Include="DataContexts\IdentityMigrations\201906160955125_InitialCreate.Designer.cs">
+      <DependentUpon>201906160955125_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\IdentityMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\ProjectMigrations\201906151724132_InitialCreate.cs" />
-    <Compile Include="DataContexts\ProjectMigrations\201906151724132_InitialCreate.Designer.cs">
-      <DependentUpon>201906151724132_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\ProjectMigrations\201906160956089_InitialCreate.cs" />
+    <Compile Include="DataContexts\ProjectMigrations\201906160956089_InitialCreate.Designer.cs">
+      <DependentUpon>201906160956089_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\ProjectMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\QuestionMigrations\201906151723410_InitialCreate.cs" />
-    <Compile Include="DataContexts\QuestionMigrations\201906151723410_InitialCreate.Designer.cs">
-      <DependentUpon>201906151723410_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\QuestionMigrations\201906160955405_InitialCreate.cs" />
+    <Compile Include="DataContexts\QuestionMigrations\201906160955405_InitialCreate.Designer.cs">
+      <DependentUpon>201906160955405_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\QuestionMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201906151723229_InitialCreate.cs" />
-    <Compile Include="DataContexts\QuizzMigrations\201906151723229_InitialCreate.Designer.cs">
-      <DependentUpon>201906151723229_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\QuizzMigrations\201906160956232_InitialCreate.cs" />
+    <Compile Include="DataContexts\QuizzMigrations\201906160956232_InitialCreate.Designer.cs">
+      <DependentUpon>201906160956232_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\QuizzMigrations\Configuration.cs" />
-    <Compile Include="DataContexts\UVMigrations\201906151722474_InitialCreate.cs" />
-    <Compile Include="DataContexts\UVMigrations\201906151722474_InitialCreate.Designer.cs">
-      <DependentUpon>201906151722474_InitialCreate.cs</DependentUpon>
+    <Compile Include="DataContexts\UVMigrations\201906160956370_InitialCreate.cs" />
+    <Compile Include="DataContexts\UVMigrations\201906160956370_InitialCreate.Designer.cs">
+      <DependentUpon>201906160956370_InitialCreate.cs</DependentUpon>
     </Compile>
     <Compile Include="DataContexts\UVMigrations\Configuration.cs" />
     <Compile Include="Projects\DetailProject.aspx.cs">
@@ -660,26 +660,26 @@
     <TypeScriptCompile Include="Scripts\index.d.ts" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="DataContexts\AnswereMigrations\201906151723573_InitialCreate.resx">
-      <DependentUpon>201906151723573_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\AnswereMigrations\201906160955548_InitialCreate.resx">
+      <DependentUpon>201906160955548_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\FileMigrations\201906151723048_InitialCreate.resx">
-      <DependentUpon>201906151723048_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\FileMigrations\201906160955268_InitialCreate.resx">
+      <DependentUpon>201906160955268_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\IdentityMigrations\201906151722287_InitialCreate.resx">
-      <DependentUpon>201906151722287_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\IdentityMigrations\201906160955125_InitialCreate.resx">
+      <DependentUpon>201906160955125_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\ProjectMigrations\201906151724132_InitialCreate.resx">
-      <DependentUpon>201906151724132_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\ProjectMigrations\201906160956089_InitialCreate.resx">
+      <DependentUpon>201906160956089_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\QuestionMigrations\201906151723410_InitialCreate.resx">
-      <DependentUpon>201906151723410_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\QuestionMigrations\201906160955405_InitialCreate.resx">
+      <DependentUpon>201906160955405_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\QuizzMigrations\201906151723229_InitialCreate.resx">
-      <DependentUpon>201906151723229_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\QuizzMigrations\201906160956232_InitialCreate.resx">
+      <DependentUpon>201906160956232_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DataContexts\UVMigrations\201906151722474_InitialCreate.resx">
-      <DependentUpon>201906151722474_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="DataContexts\UVMigrations\201906160956370_InitialCreate.resx">
+      <DependentUpon>201906160956370_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
