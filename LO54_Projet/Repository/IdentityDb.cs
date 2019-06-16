@@ -38,10 +38,10 @@ namespace LO54_Projet.Repository
             return Users.FirstOrDefault(u => u.Id == id).Role;
         }
 
-        public void AddUV(string id, UV uv)
+        public void AddUV(string id, int iduv)
         {
             try { 
-            Users.Find(id).ListUV.Add(uv);
+            Users.Find(id).ListUV.Add(iduv);
             SaveChanges();
         }
             catch (DbEntityValidationException e)

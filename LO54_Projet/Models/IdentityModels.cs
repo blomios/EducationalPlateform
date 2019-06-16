@@ -24,7 +24,7 @@ namespace LO54_Projet.Models
         [Required]
         public string Role { get; set; }
         [Required]
-        public List<UV> ListUV { get; set; }
+        public List<int> ListUV { get; set; }
 
         public ApplicationUser() : base()
         {
@@ -32,7 +32,7 @@ namespace LO54_Projet.Models
             Prenom = "";
             CustomRoles cr = new CustomRoles();
             Role = cr.getEtud();
-            ListUV = new List<UV>();
+            ListUV = new List<int>();
         }
 
         public ApplicationUser(string nom, string prenom) : base()
@@ -42,7 +42,7 @@ namespace LO54_Projet.Models
 
             CustomRoles cr = new CustomRoles();
             Role = cr.getEtud();
-            ListUV = new List<UV>();
+            ListUV = new List<int>();
         }
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)

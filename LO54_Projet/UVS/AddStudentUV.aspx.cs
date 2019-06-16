@@ -32,14 +32,15 @@ namespace LO54_Projet.UVS
                 string nom = "";
                 //string email;
                 //string pwd;
-                //try
-                //{
+                try
+                {
                     string filename = Path.GetFileName(FileUploadControl.FileName);
                     FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
                     StatusLabel.Text = "Upload status: File uploaded!";
                     string line;
                     System.IO.StreamReader file =
                     new System.IO.StreamReader(Server.MapPath("~/") + filename);
+                    IdentityDb id = new IdentityDb();
                     while ((line = file.ReadLine()) != null)
                     {
                         //continue;
@@ -65,25 +66,32 @@ namespace LO54_Projet.UVS
                         IdentityResult result = manager.Create(user, mpwd.Value);
                         if (result.Succeeded)
                         {
-                            //Regex rxc = new Regex(@"^([^;]+)(?=;)");
-                            //Match mc = rxc.Match(filename);
+                            Regex rxc = new Regex(@"^([^.]+)(?=[.])");
+                            Match mc = rxc.Match(filename);
                             UVDb u = new UVDb();
-                            UV uv = u.GetByDenomination("GL52");
-                            IdentityDb id = new IdentityDb();
-                            id.AddUV(user.Id, uv);
+                            //Console.WriteLine(mc.Value);
+                            UV uv = u.GetByDenomination(mc.Value);
+                            //StatusLabel.Text =  mc.Value;
+                            
+                            id.AddUV(user.Id, uv.IdUv);
+                            ApplicationUser usr = id.Users.Find(user.Id);
+                            StatusLabel.Text = usr.UserName + " " + usr.ListUV[0];
                         }
                         else
                         {
                             ErrorMessage.Text = result.Errors.FirstOrDefault();
+                            
                         }
-
                     }
 
-                
-                //catch (Exception ex)
-                //{
-                //    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                //}
+
+
+                }
+                catch (Exception ex)
+                {
+                    StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                }
+            
                 
             }
         }
