@@ -518,7 +518,7 @@
     <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Entities\Answere.cs" />
+    <Compile Include="Entities\Answer.cs" />
     <Compile Include="Entities\AnswereType.cs" />
     <Compile Include="Entities\inscripition.cs" />
     <Compile Include="Entities\File.cs" />

@@ -10,7 +10,7 @@ namespace LO54_Projet.Repository
 {
     public class AnswereDb : DbContext
     {
-        public DbSet<Answere> Answeres { get; set; } // Créer la table UVs à partir des objets UV implémentés avec le site web
+        public DbSet<Answer> Answeres { get; set; } // Créer la table UVs à partir des objets UV implémentés avec le site web
 
         public AnswereDb()
             : base("TestReel")

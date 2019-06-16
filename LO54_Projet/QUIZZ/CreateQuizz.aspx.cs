@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.Identity;
 using System.Text;
+using System.Data.Entity.Validation;
 
 namespace LO54_Projet.QUIZZ
 {
@@ -17,32 +18,13 @@ namespace LO54_Projet.QUIZZ
         private UVDb myUvDb = UVDb.GetInstance();
         private List<UV> linkedUvs = new List<UV>();
         private int questionsCreated;
-        const string VIEWSTATEKEY_DYNCONTROL = "DynamicControlSelection";
-        private string DynamicControlSelection
-        {
-            get
-            {
-                string result = ViewState[VIEWSTATEKEY_DYNCONTROL].ToString();
-                if (result == null)
-                    // doing things like this lets us access this property without
-                    // worrying about this property returning null/Nothing
-                    return string.Empty;
-                else
-                    return result;
-            }
-            set
-            {
-                ViewState[VIEWSTATEKEY_DYNCONTROL] = value;
-            }
-        }
-
-
 
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack) // la page ne se recharge pas
             {
+                successDiv.Visible = false;
                 init();
             }
             else // la page se recharge
@@ -55,16 +37,26 @@ namespace LO54_Projet.QUIZZ
 
         private void makePostBackControls()
         {
-            string vsFirst = ViewState["first"].ToString();
-            Boolean.TryParse(vsFirst, out first);
-            if (first)
+
+            if (ViewState["first"] == null)
             {
+                first = true;
                 questionsCreated = 0;
             }
-            else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
+            else
+            {
+                string vsFirst = ViewState["first"].ToString();
+                Boolean.TryParse(vsFirst, out first);
+                if (first)
+                {
+                    questionsCreated = 0;
+                    successDiv.Visible = false;
+                }
+                else questionsCreated = Convert.ToInt32(ViewState["questionsCreated"]);
+            }
+            
             ViewState["first"] = Boolean.FalseString;
             if (questionsCreated > 0) createControls();
-
         }
 
         private void init()
@@ -92,14 +84,13 @@ namespace LO54_Projet.QUIZZ
 
         private void createQuestion(int id)
         {
-            // d'abord un nouveau panel, pour pouvoir foutre ça au bon endroit :)
+            // d'abord un nouveau panel, pour pouvoir mettre ça au bon endroit :)
             Panel p = new Panel();
             p.ID = "Panel_Question_" + id;
             p.Attributes.CssStyle.Add("margin-bottom", "10px");
             
 
             // Ensuite, un label, pour pas que l'utilisateur soit paumé 
-            // on pourrait aussi mettre un placeholder dans la textbox, c est comme vous le sentez
             Label l = new Label();
             l.ID = "Label_Question_" + id;
             l.Text = "Enoncé " + (id + 1);
@@ -253,6 +244,7 @@ namespace LO54_Projet.QUIZZ
                 isGoodAnswer.Visible = false;
                 tRep.Visible = false;
                 lbRep.Visible = false;
+                rfv.Visible = false;
             }
          
             
@@ -284,6 +276,26 @@ namespace LO54_Projet.QUIZZ
             forcePostBack();
         }
 
+        protected void Button_Rem_Click(object sender, EventArgs e)
+        {
+            // cest une question de moins
+            questionsCreated--;
+
+            ViewState["questionsCreated"] = questionsCreated.ToString();
+            foreach (Control ctrl in panel_Questions_Container.Controls)
+            {
+                foreach (Control ct in ctrl.Controls)
+                {
+                    if (ct is TextBox)
+                    {
+                        TextBox mt = (TextBox)ct;
+                        mt.Attributes["value"] = mt.Text;
+                    }
+                }
+            }
+            forcePostBack();
+        }
+
         private void forcePostBack()
         {
             StringBuilder sbScript = new StringBuilder();
@@ -296,5 +308,162 @@ namespace LO54_Projet.QUIZZ
 
             RegisterStartupScript("AutoPostBackScript", sbScript.ToString());
         }
+
+        protected void Button_Creer_UV_Click(object sender, EventArgs e)
+        {
+            List<Panel> panes = new List<Panel>();
+            //On va parcourir chaque panel de question
+            foreach (Control ctrl in panel_Questions_Container.Controls)
+            {
+                if (ctrl.ID != null)
+                {
+                    if (ctrl.ID.Contains("Panel_Question_")) // on a à faire a un panel contenant questions + Réponses
+                    {
+                        Panel pane = (Panel)ctrl;
+                        if (!panes.Contains(pane)) panes.Add(pane);
+                    }
+                }
+            }
+
+
+            // on a récupéré les panels des questions/réponses
+            // on va les parcourir, pour créer en même temps question ET réponse
+            int id = -1;
+            bool hasOne=false;
+
+            UVDb uvs = new UVDb();
+            int selectedUv = uvs.UVs.First(u =>
+                                        u.Denomination == this.RadioButtonList_ChoixUV.SelectedItem.Value).IdUv;
+
+            Quizz q = new Quizz(QuizzName.Text.Trim(),selectedUv);
+
+            List<Question> questions = new List<Question>();
+
+            foreach (Panel p in panes)
+            {
+                string questionID = p.ID.Substring(15);
+                int.TryParse(questionID, out id); // On a récupéré l'id de la question
+
+                //la textbox de la question
+                TextBox tbQuestion = p.FindControl("TextBox_Question" + id) as TextBox;
+
+
+                // On va créer des questions et des réponses
+                Question question = new Question(q, tbQuestion.Text, AnswereType.QCM);
+
+                // les textbox / checkbox des réponses :
+                // C est ce panel qui contient les questions
+                Panel pReps = p.FindControl("Reponses_Question_" + id) as Panel;
+
+                List<TextBox> answers = new List<TextBox>();
+                List<CheckBox> isAnswer = new List<CheckBox>();
+                // On va le parcourir, et trouver les textbox réponses contenues qui ne sont pas "hidden"
+                // Ainsi que les checkBox "bonne rép"
+                foreach (Control ctrl in pReps.Controls)
+                {
+                    if (ctrl.ID != null)
+                    {
+                        // On récupère par l'ID
+                        //  tRep.ID = "TextBox_Question_Reponse_" + questionId + "_" + answerId;
+                        if (ctrl.ID.Contains("TextBox_Question_Reponse_" + id))
+                        {
+                            // C est une des réponses
+                            TextBox tRep = (TextBox)ctrl;
+                            if (tRep.Visible)
+                            {
+                                if (!answers.Contains(tRep)) answers.Add(tRep);
+                            }
+                        }
+                        else if (ctrl.ID.Contains("chb_isGood_" + id))
+                        {
+                            // C est une checkbox
+                            CheckBox cbRep = (CheckBox)ctrl;
+                            if (cbRep.Visible)
+                            {
+                                if (!isAnswer.Contains(cbRep)) isAnswer.Add(cbRep);
+                            }
+                        }
+                    }
+                }
+
+                // On a maintenant toutes les réponses pour la question en cours 
+                // il faut vérifier qu'on a au moins une "bonne réponse" pour la dite question en cours
+                hasOne = false;
+                foreach (CheckBox cb in isAnswer)
+                {
+                    if (cb.Checked)
+                    {
+                        hasOne = true;
+                        break;
+                    }
+                }
+
+                // On a au moins une bonne rép
+                if (hasOne)
+                {
+
+                    foreach (TextBox rep in answers)
+                    {
+                        // on récupére l'id de la réponse
+                        // tRep.ID = "TextBox_Question_Reponse_" + questionId + "_" + answerId;
+                        int offset = 25 + id.ToString().Length + 1;
+                        int reponseId = -1;
+                        string answerId = rep.ID.Substring(offset);
+                        int.TryParse(answerId, out reponseId);
+
+                        // Ensuite on regarde si c est une bonne réponse ou non
+                        bool isGoodAnswer = isAnswer.First(cb =>
+                                                            cb.ID.Equals("chb_isGood_" + id + "_" + answerId)).Checked;
+                        // Ce code est censé faire : 
+                        // Parmi les checkbox je récupère le premier dont l'id vaut : cb.ID.Equals("chb_isGood_" + id + "_" + answerId
+                        // Et j'attribue sa valeur "Checked" à "isGoodAnswer"
+
+                        // On peut maintenant créer la réponse
+                        Answer answere = new Answer(rep.Text, isGoodAnswer);
+                        question.OtherAnsweres.Add(answere);
+                        
+                    }
+
+                }
+                else
+                {
+                    Label_manqueRep.Visible = true;
+                    break;
+                }
+
+                questions.Add(question);
+            } // end for each
+
+            if (hasOne)
+            {
+                Label_manqueRep.Visible = false;
+                q.Questions = questions;
+                QuizzDb qdb = new QuizzDb();
+                qdb.Quizzes.Add(q);
+
+                try
+                {
+                    Console.WriteLine("-------------------- HEEEEEREEEEEEEEEE ------------------------");
+                    qdb.Database.Log = Console.WriteLine;
+                    qdb.SaveChanges();
+                    successDiv.Visible = true;
+                    clearUi();
+                }
+                catch (System.Data.Entity.Infrastructure.DbUpdateException ex)
+                {
+                    Response.Write(ex.ToString());
+                }
+            }
+        }
+
+        private void clearUi()
+        {
+            ViewState.Clear();
+            questionsCreated = 0;
+            QuizzName.Text = "";
+            RadioButtonList_ChoixUV.ClearSelection();
+            forcePostBack();
+        }
     }
+
 }
