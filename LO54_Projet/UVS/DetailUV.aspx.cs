@@ -38,6 +38,7 @@ namespace LO54_Projet.UVS
             Uploadfile1.fileType = FileType.UV;
 
             showFileList();
+            ShowQuizzesList();
             ShowProjectList();
 
             // check if owner for edit button
@@ -58,7 +59,7 @@ namespace LO54_Projet.UVS
             quizzController = (ListQuizzes)Page.LoadControl("~/QUIZZ/ListQuizzes.ascx");
             quizzController.uvId = cUV.IdUv;
             quizzController.clientScript = ClientScript;
-            QuizzPanel.Controls.Add(projectController);
+            QuizzPanel.Controls.Add(quizzController);
         }
 
         private void showFileList()
