@@ -25,6 +25,11 @@ namespace LO54_Projet.Entities
         [ForeignKey("questionRelated")]
         public List<Answer> OtherAnsweres { get; }
 
+        public Question()
+        {
+            OtherAnsweres = new List<Answer>();
+        }
+
         public Question(Quizz quizz, string enonce, AnswereType type)
         {
             Type = type;
