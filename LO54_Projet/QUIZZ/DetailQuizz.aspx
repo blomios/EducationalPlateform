@@ -35,6 +35,7 @@
         </div>
         <div class="form-group">
             <asp:Button ID="Button_Rep_Quizz" runat="server" BorderStyle="None"  CssClass="btn active" Text="Soumettre" OnClick="Button_Rep_Quizz_Click" />
+            <asp:Label ID="labelScore" runat="server"></asp:Label>
         </div>
     </div>
 
