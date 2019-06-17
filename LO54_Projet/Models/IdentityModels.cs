@@ -41,7 +41,7 @@ namespace LO54_Projet.Models
         {
             Nom = nom;
             Prenom = prenom;
-            Role = CustomRoles.roles.Prof.ToString();
+            Role = CustomRoles.roles.Etud.ToString();
         }
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)

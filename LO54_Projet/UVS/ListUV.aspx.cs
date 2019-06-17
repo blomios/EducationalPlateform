@@ -24,8 +24,7 @@ namespace LO54_Projet.UVS
         protected void Page_Load(object sender, EventArgs e)
         {
             currentUser = identityDb.GetByIdEager(Context.User.Identity.GetUserId());
-            Button_Go_Add_UV.Visible = currentUser.Role != CustomRoles.roles.Etud.ToString();
-
+            Button_Go_Add_UV.Visible = currentUser.Role == CustomRoles.roles.Prof.ToString();
         }
 
         protected void GridView_RowDataBound(object sender, GridViewRowEventArgs e)

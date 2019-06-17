@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Security;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using LO54_Projet.Repository;
+using LO54_Projet.Tools;
 using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet
@@ -19,6 +21,8 @@ namespace LO54_Projet
         protected void Page_Init(object sender, EventArgs e)
         {
             // Le code ci-dessous vous aide à vous protéger des attaques XSRF
+            var context = new IdentityDb();
+            AdministrationPanel.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Admin.ToString();
             var requestCookie = Request.Cookies[AntiXsrfTokenKey];
             Guid requestCookieGuidValue;
             if (requestCookie != null && Guid.TryParse(requestCookie.Value, out requestCookieGuidValue))

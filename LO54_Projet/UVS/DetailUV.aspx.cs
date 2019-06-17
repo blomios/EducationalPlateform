@@ -44,6 +44,7 @@ namespace LO54_Projet.UVS
             // check if owner for edit button
             bool isOwner = Context.User.Identity.GetUserId() == cUV.Owner;
             Button_Update_UV.Visible = isOwner;
+            Button_AddQuizz.Visible = isOwner;
             Button_Add_Project.Visible = isOwner;
             Button_Add_Teacher.Visible = isOwner;
         }

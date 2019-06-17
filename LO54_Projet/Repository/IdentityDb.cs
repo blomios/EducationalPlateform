@@ -7,6 +7,7 @@ using LO54_Projet.Models;
 using System.Web.Providers.Entities;
 using LO54_Projet.Entities;
 using System.Data.Entity;
+using LO54_Projet.Tools;
 
 namespace LO54_Projet.Repository
 {
@@ -56,7 +57,14 @@ namespace LO54_Projet.Repository
 
         public string GetUserRole(string id)
         {
-            return GetById(id).Role;
+            try
+            {
+                return GetById(id).Role;
+            }
+            catch
+            {
+                return CustomRoles.roles.Etud.ToString();
+            }
         }
 
         /// <summary>
@@ -73,6 +81,13 @@ namespace LO54_Projet.Repository
         {
             ApplicationUser user = GetByIdEager(userId);
             user.UserSharedUVs.Add(new UserSharedUV(userId, uvId));
+            SaveChanges();
+        }
+
+        public void setRole(string userId, string role)
+        {
+            ApplicationUser user = GetByIdEager(userId);
+            user.Role = role;
             SaveChanges();
         }
 

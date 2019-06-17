@@ -3,34 +3,44 @@
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <div class="jumbotron">
         <h1>Educational Plateform</h1>
-        <p class="lead">Welcome on you educational plateform</p>
+        <p class="lead">Welcome on your educational plateform</p>
     </div>
 
     <div class="row">
-        <div class="col-md-4">
-            <h2>Accéder au CRUD des UVs</h2>
-            <p>
+        <asp:Panel ID="Panel1" runat="server" ScrollBars="Auto">
 
-            <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" OnClick="Button1_Click" Text="CRUD UVs" />
+            <div class="col-md-4">
+                <h2>Accéder aux UVs</h2>
+                <p>
 
-            </p>
-        </div>
-         <div class="col-md-4">
-            <h2>Accéder au CRUD des QUIZZ</h2>
-            <p>
+                    <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" OnClick="Button1_Click" Text="acces aux UVs" />
 
-            <asp:Button ID="Button3" runat="server" CssClass="btn btn-primary" OnClick="Button3_Click" Text="CRUD QUIZZ" />
+                </p>
+                <hr />
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="Quizz" runat="server" ScrollBars="Auto">
+             <div class="col-md-4">
+                <h2>Accéder à la création des QUIZZ</h2>
+                <p>
 
-            </p>
-        </div>
-        <div class="col-md-4">
-            <h2>Accéder à l'ajout d'étudiants</h2>
-            <p>
+                <asp:Button ID="Button3" runat="server" CssClass="btn btn-primary" OnClick="Button3_Click" Text="Création de quizz" />
 
-            <asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" OnClick="Button2_Click" Text="Ajout d'étudiants" />
+                </p>
+                 <hr />
+            </div>
+        </asp:Panel>
+        <asp:Panel ID="AddStudent" runat="server" ScrollBars="Auto">
+            <div class="col-md-4">
+                <h2>Accéder à l'ajout d'étudiants</h2>
+                <p>
 
-            </p>
-        </div
+                <asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" OnClick="Button2_Click" Text="Ajout d'étudiants" />
+
+                </p>
+                <hr />
+            </div>
+        </asp:Panel>
         <div class="col-md-4">
            <%-- <h2>Affichage des informations :</h2>
             <p>
