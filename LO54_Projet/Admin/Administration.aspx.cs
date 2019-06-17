@@ -41,7 +41,6 @@ namespace LO54_Projet.Administration
 
             if (username.Contains("'"))
             {
-                
                 username = username.Replace("'", " ");
             }
 
@@ -49,11 +48,15 @@ namespace LO54_Projet.Administration
             {
                 e.Cancel = true;
             }
-            SqlDataSource_users.UpdateCommand = " UPDATE [AspNetUsers] SET [Email]= '"+email+ "'" +
-                ", [UserName] = '" +username+ "'"+
+            else
+            {
+                SqlDataSource_users.UpdateCommand = " UPDATE [AspNetUsers] SET [Email]= '" + email + "'" +
+                ", [UserName] = '" + username + "'" +
                 ",[Role] = '" + roleValue + "'" +
-                " WHERE [Id] = '" +id+"'";
-            SqlDataSource_users.Update();
+                " WHERE [Id] = '" + id + "'";
+                SqlDataSource_users.Update();
+            }
+            
         }
         
 
