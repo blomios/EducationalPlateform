@@ -12,7 +12,7 @@ using LO54_Projet.Models;
 using Microsoft.AspNet.Identity;
 using LO54_Projet.Entities;
 using System.Security.Principal;
-
+using LO54_Projet.Tools;
 
 namespace LO54_Projet.Controllers
 {
@@ -20,6 +20,7 @@ namespace LO54_Projet.Controllers
     {
         public ClientScriptManager clientScript;
         private QuizzDb quizzContext = QuizzDb.GetInstance();
+        private IdentityDb identityContext = IdentityDb.GetInstance();
         public int uvId;
 
         protected void Page_Load(object sender, EventArgs e)
@@ -59,9 +60,12 @@ namespace LO54_Projet.Controllers
 
         protected void GridView_OnSelectedIndexChanged(object sender, EventArgs e)
         {
-            //string projectId = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Cells[0].Text;
+            //string projectId = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Cells[0].Text
             string IdQuizz = GridView_Projects.Rows[GridView_Projects.SelectedIndex].Attributes["IdQuizz"];
-            Response.Redirect("/QUIZZ/DetailQuizz.aspx?quizz=" + IdQuizz, true);
+            string url = identityContext.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString()
+                         ? "/QUIZZ/StatsQuizz.aspx?quizz=" + IdQuizz
+                         : "/QUIZZ/DetailQuizz.aspx?quizz=" + IdQuizz;
+            Response.Redirect(url, true);
         }
 
         protected void GridView_OnRowCommand(object sender, GridViewCommandEventArgs e)
