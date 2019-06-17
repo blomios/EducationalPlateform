@@ -19,17 +19,17 @@ namespace LO54_Projet.QUIZZ
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            cQuizz = quizzContext.GetByIdStringEager(Request.Params.Get("quizz"));
+            linkedUv = uvContext.GetById(cQuizz.IdUv);
+
+            setQuizzInfos();
+
+            int count = 1;
+            foreach (Question question in cQuizz.Questions)
             {
-                cQuizz = quizzContext.GetByIdStringEager(Request.Params.Get("quizz"));
-                linkedUv = uvContext.GetById(cQuizz.IdUv);
-
-                setQuizzInfos();
-
-                foreach (Question question in cQuizz.Questions)
-                {
-                    setQuestion(panel_Questions_Container,question);
-                }
+                string questionNumber = count.ToString();
+                setQuestion(panel_Questions_Container, question,questionNumber);
+                count++; 
             }
         }
 
@@ -40,7 +40,7 @@ namespace LO54_Projet.QUIZZ
             RadioButtonList_ChoixUV.Items[0].Selected = true;
         }
 
-        private void setQuestion(Panel parent, Question q)
+        private void setQuestion(Panel parent, Question q,string numQuestion)
         {
             // d'abord un nouveau panel, pour pouvoir mettre ça au bon endroit :)
             Panel p = new Panel();
@@ -51,7 +51,7 @@ namespace LO54_Projet.QUIZZ
             // Ensuite, un label, pour pas que l'utilisateur soit paumé 
             Label l = new Label();
             l.ID = "Label_Question_" + (q.IdQuestion+1);
-            l.Text = "Enoncé " + ((q.IdQuestion + 1) + 1);
+            l.Text = "Enoncé " + numQuestion;
 
             // Ensuite
             // nouvelle textbox
@@ -70,9 +70,11 @@ namespace LO54_Projet.QUIZZ
             Panel pReps = new Panel();
             pReps.ID = "Reponses_Question_" + (q.IdQuestion + 1);
 
+            int countAnswer = 1;
             foreach (Answer answer in q.OtherAnsweres)
             {
-                setAnswer(pReps, answer);
+                setAnswer(pReps, answer,countAnswer.ToString());
+                countAnswer++;
             }
             
             Literal hr = new Literal() { ID = "hr_" + (q.IdQuestion + 1), Text = "<hr/>" };
@@ -84,11 +86,11 @@ namespace LO54_Projet.QUIZZ
             pReps.HorizontalAlign = HorizontalAlign.Left;
         }
 
-        private void setAnswer(Panel parent, Answer a)
+        private void setAnswer(Panel parent, Answer a,string numReponse)
         {
             Label lbRep = new Label();
             int answerId = a.IdAnswere;
-            lbRep.Text = "Réponse " + (answerId + 1);
+            lbRep.Text = "Réponse " + numReponse;
 
             TextBox tRep = new TextBox();
             tRep.Text = a.answere;            
@@ -117,6 +119,26 @@ namespace LO54_Projet.QUIZZ
             parent.Controls.Add(lbRep);
             parent.Controls.Add(tRep);
             parent.Controls.Add(isGoodAnswer);
+        }
+
+        protected void Button_Rep_Quizz_Click(object sender, EventArgs e)
+        {
+            int score = 0;
+            int nbQuestions = cQuizz.Questions.Count;
+            bool allGood = true;
+            foreach (Question question in cQuizz.Questions)
+            {
+                Panel pQuestion = panel_Questions_Container.FindControl("Panel_Question_" + question.IdQuestion) as Panel;
+                foreach (Answer answer in question.OtherAnsweres)
+                {
+                    CheckBox cbAnswer = pQuestion.FindControl("chb_isGood_" + question.IdQuestion + "_" + answer.IdAnswere) as CheckBox;
+                    allGood = (cbAnswer.Checked == answer.isGoodAnswere);
+                    if (!allGood) break;
+                }
+                if (allGood) score++;
+            }
+            labelScore.Text = "Score final : "+score+"/"+nbQuestions;
+            labelScore.Visible = true;
         }
     }
 }

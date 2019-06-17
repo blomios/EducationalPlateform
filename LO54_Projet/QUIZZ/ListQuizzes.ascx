@@ -7,7 +7,7 @@
         <asp:BoundField DataField="Name" HeaderText="Nom" SortExpression="Name" />
         <asp:TemplateField HeaderText="Actions">
             <ItemTemplate>
-<%--                <asp:Button ID="btn_del" runat="server" Text="Supprimer" CssClass="btn btn-danger btn-sm" CommandName="del" CommandArgument='<%# Eval("IdProject") %>' OnClientClick="return confirm('Voulez-vous vraiment supprimer ce projet ? Cette action est irreversibe.')" />--%>
+                <asp:Button ID="btn_del" runat="server" Text="Supprimer" CssClass="btn btn-danger btn-sm" CommandName="del" CommandArgument='<%# Eval("IdQuizz") %>' OnClientClick="return confirm('Voulez-vous vraiment supprimer ce quizz ? Cette action est irreversibe.')" />
             </ItemTemplate>
         </asp:TemplateField>
     </Columns>

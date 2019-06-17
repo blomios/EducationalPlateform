@@ -11,8 +11,10 @@
         <div class="form-group">
             <asp:Label runat="server" AssociatedControlID="QuizzName" CssClass="col-md-2 control-label" Enabled="false">Nom du quizz</asp:Label>
             <div class="col-md-10">
-                <asp:TextBox runat="server" ID="QuizzName" CssClass="form-control"/>
+                <asp:TextBox runat="server" ID="QuizzName" CssClass="form-control" Enabled="false" Font-Size="Large"/>
             </div>
+        </div>
+        <div class="form-group">
         </div>
         <div class="form-group">
             <asp:Label runat="server" CssClass="col-md-2 control-label">UV associée</asp:Label>
@@ -31,9 +33,11 @@
                 </div>
             </asp:Panel>
         </div>
+        <div class="form-group">
+            <asp:Button ID="Button_Rep_Quizz" runat="server" BorderStyle="None"  CssClass="btn active" Text="Soumettre" OnClick="Button_Rep_Quizz_Click" />
+            <asp:Label ID="labelScore" runat="server"></asp:Label>
+        </div>
     </div>
-
-   
 
 </asp:Content>
 
