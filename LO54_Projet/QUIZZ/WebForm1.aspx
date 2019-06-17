@@ -7,6 +7,13 @@
 <%@ Register src="../Controllers/AnswereForm.ascx" tagname="AnswereForm" tagprefix="uc2" %>
 
 
+
+
+<%@ Register src="../Controllers/Uploadfile.ascx" tagname="Uploadfile" tagprefix="uc3" %>
+
+
+
+
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -21,6 +28,9 @@
     <form id="form1" runat="server">
         <div>
             QUIZZ Creation</div>
+        <p>
+            </p>
+        <uc3:Uploadfile ID="Uploadfile1" runat="server" />
         <p>
             Nom du quizz</p>
         <p>

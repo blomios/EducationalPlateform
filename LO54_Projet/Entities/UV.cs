@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using LO54_Projet.Models;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.RegularExpressions;
 
@@ -9,18 +11,21 @@ namespace LO54_Projet.Entities
         [Key]
         public int IdUv { get; set; }
         [Required]
-        [Index(IsUnique=true)]
+        [Index(IsUnique = true)]
         [StringLength(4)]
         public string Denomination { get; set; } // GL52, LO54 ...
+        [Required]
+        public string Name { get; set; }
         public string Description { get; set; }
         [Required]
         public string Owner { get; set; }
 
         public UV() {}
 
-        public UV(string denom, string desc, string owner)
+        public UV(string denom, string name, string desc, string owner)
         {
             Denomination = denom;
+            Name = name;
             Description = desc;
             Owner = owner;
         }

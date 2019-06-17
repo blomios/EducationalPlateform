@@ -9,6 +9,9 @@ using Microsoft.Owin.Security;
 using LO54_Projet.Models;
 using LO54_Projet.Tools;
 using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
+using LO54_Projet.Entities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LO54_Projet.Models
 {
@@ -20,23 +23,25 @@ namespace LO54_Projet.Models
         [Required]
         public string Prenom { get; set; }
         [Required]
-        public string Role { get; set; } 
+        public string Role { get; set; }
+        
+        public List<UserSharedUV> UserSharedUVs { get; set; }
+        public List<User_Quizz> QuizzTaken { get; set; }
 
         public ApplicationUser() : base()
         {
             Nom = "";
             Prenom = "";
             CustomRoles cr = new CustomRoles();
-            Role = cr.getEtud();
+            Role = cr.getProf();
+            
         }
 
         public ApplicationUser(string nom, string prenom) : base()
         {
             Nom = nom;
             Prenom = prenom;
-
-            CustomRoles cr = new CustomRoles();
-            Role = cr.getEtud();
+            Role = CustomRoles.roles.Etud.ToString();
         }
 
         public ClaimsIdentity GenerateUserIdentity(ApplicationUserManager manager)
@@ -50,6 +55,16 @@ namespace LO54_Projet.Models
         public Task<ClaimsIdentity> GenerateUserIdentityAsync(ApplicationUserManager manager)
         {
             return Task.FromResult(GenerateUserIdentity(manager));
+        }
+
+        public bool HasAccessToUV(int uvId)
+        {
+            return UserSharedUVs.Exists(u => u.UVId == uvId);
+        }
+
+        public bool TookQuizz(int idQuizz)
+        {
+            return QuizzTaken.Exists(q => q.QuizzId == idQuizz);
         }
     }
 

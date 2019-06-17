@@ -12,20 +12,30 @@ namespace LO54_Projet.Entities
     {
         [Key]
         public int IdQuizz { get; set; }
+        
+        public string Name { get; set; } = "Toto";
 
         [Required]
-        string Name { get; set; }
+        public int IdUv { get; set; }
+        
+        [ForeignKey("IdQuizz")]
+        public List<Question> Questions { get; set; }
 
-        [Required]
-        public UV LinkedUV { get; set; }
+        public Quizz() { }
 
-        List<Question> Questions { get; set; }
+        public Quizz(string name, int linkedUV)
+        {
+            Name = name;
+            Questions = new List<Question>();
+            IdUv = linkedUV;
+        }
 
-        public Quizz(string name, List<Question> questions, UV linkedUV)
+
+        public Quizz(string name, List<Question> questions, int linkedUV)
         {
             Name = name;
             Questions = questions;
-            LinkedUV = linkedUV;
+            IdUv = linkedUV;
         }
     }
 }

@@ -22,6 +22,15 @@ namespace LO54_Projet.QUIZZ {
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
+        /// Contrôle successDiv.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl successDiv;
+        
+        /// <summary>
         /// Contrôle QuizzName.
         /// </summary>
         /// <remarks>
@@ -76,6 +85,24 @@ namespace LO54_Projet.QUIZZ {
         protected global::System.Web.UI.WebControls.Button Button_Add;
         
         /// <summary>
+        /// Contrôle Button_Remove.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_Remove;
+        
+        /// <summary>
+        /// Contrôle Label_manqueRep.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label_manqueRep;
+        
+        /// <summary>
         /// Contrôle Button_Creer_UV.
         /// </summary>
         /// <remarks>
@@ -83,5 +110,14 @@ namespace LO54_Projet.QUIZZ {
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button Button_Creer_UV;
+        
+        /// <summary>
+        /// Contrôle Button_Retour.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button Button_Retour;
     }
 }
