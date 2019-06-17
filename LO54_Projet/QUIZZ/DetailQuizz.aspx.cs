@@ -1,4 +1,5 @@
 ﻿using LO54_Projet.Entities;
+using LO54_Projet.Models;
 using LO54_Projet.Repository;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Microsoft.AspNet.Identity;
 
 namespace LO54_Projet.QUIZZ
 {
@@ -14,6 +16,7 @@ namespace LO54_Projet.QUIZZ
         private static UVDb uvContext = UVDb.GetInstance();
         private UV linkedUv;
 
+        private static IdentityDb identityContext = IdentityDb.GetInstance();
         private static QuizzDb quizzContext = QuizzDb.GetInstance();
         private Quizz cQuizz;
 
@@ -137,8 +140,27 @@ namespace LO54_Projet.QUIZZ
                 }
                 if (allGood) score++;
             }
+
+
+            ApplicationUser user = identityContext.GetByIdEager(User.Identity.GetUserId());
+            if (user != null)
+            {
+                identityContext.addQuizzTaken(user.Id, cQuizz.IdQuizz, score, nbQuestions);
+            }
+
             labelScore.Text = "Score final : "+score+"/"+nbQuestions;
             labelScore.Visible = true;
+        }
+
+        protected void Button_Ret_Click(object sender, EventArgs e)
+        {
+            UV uV = uvContext.GetById(cQuizz.IdUv);
+            RedirectToUV(uV.Denomination);
+        }
+
+        private void RedirectToUV(string uvDenom)
+        {
+            Response.Redirect("/UVS/DetailUV.aspx?uv=" + uvDenom, true);
         }
     }
 }

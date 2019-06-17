@@ -11,6 +11,8 @@ using LO54_Projet.Repository;
 using LO54_Projet.Models;
 using Microsoft.AspNet.Identity;
 using LO54_Projet.Entities;
+using System.Security.Principal;
+
 
 namespace LO54_Projet.Controllers
 {
@@ -22,8 +24,8 @@ namespace LO54_Projet.Controllers
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv]"
-                                                   + " FROM[Quizzs] p"
+            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv], uq.[Score],uq.[ScoreMax]"
+                                                   + " FROM [Quizzs] p INNER JOIN [User_Quizz] uq ON uq.QuizzId=p.IdQuizz"
                                                    + " WHERE p.idUV = " + uvId;
         }
 
@@ -31,11 +33,11 @@ namespace LO54_Projet.Controllers
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                //bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "OwnerId").ToString());
+                bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "IdQuizz").ToString());
 
                 // display action buttons if user is owner
                 TableCell actionCell = e.Row.Cells[e.Row.Cells.Count - 1];
-                //actionCell.FindControl("btn_del").Visible = isOwner;
+                actionCell.FindControl("btn_del").Visible = isOwner;
 
 
                 // project detail on row click, except for the last cell with the action buttons

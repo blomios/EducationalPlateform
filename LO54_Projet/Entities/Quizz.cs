@@ -13,11 +13,6 @@ namespace LO54_Projet.Entities
         [Key]
         public int IdQuizz { get; set; }
         
-        /*
-         
-        [Required]
-        [DatabaseGenerated(DatabaseGeneratedOption.None)]
-             */
         public string Name { get; set; } = "Toto";
 
         [Required]

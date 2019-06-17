@@ -36,6 +36,7 @@ namespace LO54_Projet.Repository
         public ApplicationUser GetByIdEager(string id)
         {
             return Users.Include(u => u.UserSharedUVs)
+                        .Include(u => u.QuizzTaken)
                         .Where(u => u.Id == id)
                         .FirstOrDefault();
         }
@@ -43,6 +44,7 @@ namespace LO54_Projet.Repository
         public ApplicationUser GetByEmailEager(string email)
         {
             return Users.Include(u => u.UserSharedUVs)
+                        .Include(u => u.QuizzTaken)
                         .Where(u => u.Email == email)
                         .FirstOrDefault();
         }
@@ -71,6 +73,13 @@ namespace LO54_Projet.Repository
         {
             ApplicationUser user = GetByIdEager(userId);
             user.UserSharedUVs.Add(new UserSharedUV(userId, uvId));
+            SaveChanges();
+        }
+
+        public void addQuizzTaken(string userId, int quizzId,int score,int scoreMax)
+        {
+            ApplicationUser user = GetByIdEager(userId);
+            user.QuizzTaken.Add(new User_Quizz(userId, quizzId, score,scoreMax));
             SaveChanges();
         }
     }

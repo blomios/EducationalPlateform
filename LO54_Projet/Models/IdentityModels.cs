@@ -26,6 +26,7 @@ namespace LO54_Projet.Models
         public string Role { get; set; }
         
         public List<UserSharedUV> UserSharedUVs { get; set; }
+        public List<User_Quizz> QuizzTaken { get; set; }
 
         public ApplicationUser() : base()
         {
@@ -59,6 +60,11 @@ namespace LO54_Projet.Models
         public bool HasAccessToUV(int uvId)
         {
             return UserSharedUVs.Exists(u => u.UVId == uvId);
+        }
+
+        public bool TookQuizz(int idQuizz)
+        {
+            return QuizzTaken.Exists(q => q.QuizzId == idQuizz);
         }
     }
 

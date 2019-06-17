@@ -5,6 +5,8 @@
     <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
     <Columns>
         <asp:BoundField DataField="Name" HeaderText="Nom" SortExpression="Name" />
+        <asp:BoundField DataField="Score" HeaderText="Note" SortExpression="Score" />
+        <asp:BoundField DataField="ScoreMax" HeaderText="Maximum" SortExpression="ScoreMax" />
         <asp:TemplateField HeaderText="Actions">
             <ItemTemplate>
                 <asp:Button ID="btn_del" runat="server" Text="Supprimer" CssClass="btn btn-danger btn-sm" CommandName="del" CommandArgument='<%# Eval("IdQuizz") %>' OnClientClick="return confirm('Voulez-vous vraiment supprimer ce quizz ? Cette action est irreversibe.')" />
