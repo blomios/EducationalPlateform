@@ -22,6 +22,15 @@ namespace LO54_Projet.UVS {
         protected global::System.Web.UI.WebControls.Literal ErrorMessage;
         
         /// <summary>
+        /// Contrôle RadioButtonList_ChoixUV.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.RadioButtonList RadioButtonList_ChoixUV;
+        
+        /// <summary>
         /// Contrôle FileUploadControl.
         /// </summary>
         /// <remarks>

@@ -8,6 +8,15 @@
     <div class="form-horizontal">
         <br />
         <h3>Importer des élèves</h3>
+        <div class="form-group">
+            <asp:Label runat="server" CssClass="col-md-2 control-label">UV associée</asp:Label>
+            <div class="col-md-10">
+                <asp:RadioButtonList ID="RadioButtonList_ChoixUV" runat="server" CssClass="radio">
+                </asp:RadioButtonList>
+                <asp:RequiredFieldValidator runat="server" ControlToValidate="RadioButtonList_ChoixUV"
+                    CssClass="text-danger" ErrorMessage="Au moins une UV doit être sélectionnée" />
+            </div>
+        </div>
         
         <div class="form-group">
             <asp:FileUpload id="FileUploadControl" runat="server" />

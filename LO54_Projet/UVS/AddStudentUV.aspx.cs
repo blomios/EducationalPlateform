@@ -16,16 +16,35 @@ namespace LO54_Projet.UVS
 {
     public partial class AddStudentUV : System.Web.UI.Page
     {
+        private List<UV> linkedUvs = new List<UV>();
+        private UVDb myUvDb = UVDb.GetInstance();
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack) // la page ne se recharge pas
+            {
+                ViewState["first"] = Boolean.TrueString;
+                linkedUvs = myUvDb.GetLinkedUvs(User.Identity.GetUserId());
+                if (linkedUvs.Count > 0)
+                {
+                    RadioButtonList_ChoixUV.Items.Clear();
+                    foreach (UV u in linkedUvs)
+                    {
+                        RadioButtonList_ChoixUV.Items.Add(u.Denomination);
+                    }
+                }
 
-
-
+            }
         }
+
         protected void UploadButton_Click(object sender, EventArgs e)
         {
             if (FileUploadControl.HasFile)
             {
+                UVDb uvs = new UVDb();
+                int selectedUv = uvs.GetByDenomination(RadioButtonList_ChoixUV.SelectedItem.Value).IdUv;
+                System.Diagnostics.Debug.WriteLine(RadioButtonList_ChoixUV.SelectedItem.Value);
+
                 var manager = Context.GetOwinContext().GetUserManager<ApplicationUserManager>();
                 var signInManager = Context.GetOwinContext().Get<ApplicationSignInManager>();
                 string prenom = "";
@@ -42,10 +61,10 @@ namespace LO54_Projet.UVS
                     file =
                     new System.IO.StreamReader(Server.MapPath("~/") + filename);
                     IdentityDb id = new IdentityDb();
-                    Regex rxc = new Regex(@"^([^.]+)(?=[.])");
-                    Match mc = rxc.Match(filename);
-                    UVDb u = new UVDb();
-                    UV uv = u.GetByDenomination(mc.Value);
+                    //Regex rxc = new Regex(@"^([^.]+)(?=[.])");
+                    //Match mc = rxc.Match(filename);
+                    //UVDb u = new UVDb();
+                    //UV uv = u.GetByDenomination(mc.Value);
                     while ((line = file.ReadLine()) != null)
                     {
                         //continue;
@@ -74,11 +93,11 @@ namespace LO54_Projet.UVS
                         if (id.Users.FirstOrDefault(usr => usr.UserName == user.UserName) == null)
                         {
                             IdentityResult result = manager.Create(user, mpwd.Value);
-                            
+
                             if (result.Succeeded)
                             {
 
-                                id.AddSharedUV(user.Id, uv.IdUv);
+                                id.AddSharedUV(user.Id, selectedUv);
 
                             }
                             else
@@ -91,9 +110,9 @@ namespace LO54_Projet.UVS
                         {
                             ApplicationUser us = id.Users.FirstOrDefault(usr => usr.UserName == user.UserName);
                             //if (!us.HasAccessToUV(uv.IdUv)){
-                                id.AddSharedUV(us.Id, uv.IdUv);
+                            id.AddSharedUV(us.Id, selectedUv);
                             //}
-                            
+
                         }
 
                     }
@@ -102,7 +121,7 @@ namespace LO54_Projet.UVS
                 catch (Exception ex)
                 {
                     StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
-                    
+
                 }
 
 
