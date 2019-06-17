@@ -17,15 +17,24 @@ namespace LO54_Projet.QUIZZ
         private UV linkedUv;
 
         private static IdentityDb identityContext = IdentityDb.GetInstance();
+        private ApplicationUser user;
+        private bool isProf = false;
+
         private static QuizzDb quizzContext = QuizzDb.GetInstance();
         private Quizz cQuizz;
+
 
         protected void Page_Load(object sender, EventArgs e)
         {
             cQuizz = quizzContext.GetByIdStringEager(Request.Params.Get("quizz"));
             linkedUv = uvContext.GetById(cQuizz.IdUv);
+            user = identityContext.GetById(Context.User.Identity.GetUserId());
+
+            isProf = user.Role.Equals("Prof");
+            Button_Rep_Quizz.Enabled = !isProf;
 
             setQuizzInfos();
+
 
             int count = 1;
             foreach (Question question in cQuizz.Questions)
@@ -55,6 +64,8 @@ namespace LO54_Projet.QUIZZ
             Label l = new Label();
             l.ID = "Label_Question_" + (q.IdQuestion+1);
             l.Text = "Enoncé " + numQuestion;
+            l.Font.Size = 14;
+            l.Font.Bold = true;
 
             // Ensuite
             // nouvelle textbox
@@ -80,7 +91,7 @@ namespace LO54_Projet.QUIZZ
                 countAnswer++;
             }
             
-            Literal hr = new Literal() { ID = "hr_" + (q.IdQuestion + 1), Text = "<hr/>" };
+            Literal hr = new Literal() { ID = "hr_" + (q.IdQuestion + 1), Text = "<hr size='1' color='black'/>" };
             panel_Questions_Container.Controls.Add(p);
             p.Controls.Add(l);
             p.Controls.Add(t);
@@ -94,6 +105,8 @@ namespace LO54_Projet.QUIZZ
             Label lbRep = new Label();
             int answerId = a.IdAnswere;
             lbRep.Text = "Réponse " + numReponse;
+            lbRep.Font.Size = 12;
+            lbRep.Font.Bold = true;
 
             TextBox tRep = new TextBox();
             tRep.Text = a.answere;            
@@ -115,7 +128,12 @@ namespace LO54_Projet.QUIZZ
             isGoodAnswer.Text = "Bonne réponse";
             isGoodAnswer.Attributes.CssStyle.Add("margin-left", "21px");
             isGoodAnswer.TextAlign = TextAlign.Right;
-            isGoodAnswer.Checked = false ;
+            isGoodAnswer.Enabled = !isProf;
+            if(isProf)
+                isGoodAnswer.Checked = a.isGoodAnswere;
+            else
+                isGoodAnswer.Checked = false;
+
             isGoodAnswer.CausesValidation = false;
 
 

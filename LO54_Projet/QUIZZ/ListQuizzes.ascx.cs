@@ -24,8 +24,9 @@ namespace LO54_Projet.Controllers
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv], uq.[Score],uq.[ScoreMax]"
-                                                   + " FROM [Quizzs] p LEFT OUTER JOIN [User_Quizz] uq ON uq.QuizzId=p.IdQuizz"
+            SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv], uq.[Score],uq.[ScoreMax],uq.[UserId],uv.[Owner]"
+                                                   + " FROM [Quizzs] p LEFT OUTER JOIN [User_Quizz] uq ON((uq.QuizzId=p.IdQuizz) AND ((uq.UserId='" + Context.User.Identity.GetUserId() + "')))"
+                                                   + " LEFT OUTER JOIN [UVs] uv ON (p.IdUv = uv.IdUv) "
                                                    + " WHERE p.idUV = " + uvId;
         }
 
@@ -33,18 +34,24 @@ namespace LO54_Projet.Controllers
         {
             if (e.Row.RowType == DataControlRowType.DataRow)
             {
-                bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "IdQuizz").ToString());
+                bool isOwner = IsOwner(DataBinder.Eval(e.Row.DataItem, "Owner").ToString());
 
                 // display action buttons if user is owner
                 TableCell actionCell = e.Row.Cells[e.Row.Cells.Count - 1];
                 actionCell.FindControl("btn_del").Visible = isOwner;
 
+                bool quizzTaken = !(e.Row.Cells[1].Text.Equals("&nbsp;")); // pour le NULL
 
                 // project detail on row click, except for the last cell with the action buttons
-                for (int i = 0; i < e.Row.Cells.Count - 1; i++)
+
+                // Only if the quizz has not been done yet
+                if (!quizzTaken)
                 {
-                    e.Row.Cells[i].Attributes["onclick"] = clientScript.GetPostBackClientHyperlink(GridView_Projects, "Select$" + e.Row.RowIndex);
-                    e.Row.Cells[i].Attributes.Add("style", "cursor: pointer");
+                    for (int i = 0; i < e.Row.Cells.Count - 1; i++)
+                    {
+                        e.Row.Cells[i].Attributes["onclick"] = clientScript.GetPostBackClientHyperlink(GridView_Projects, "Select$" + e.Row.RowIndex);
+                        e.Row.Cells[i].Attributes.Add("style", "cursor: pointer");
+                    }
                 }
                 e.Row.Attributes.Add("IdQuizz", DataBinder.Eval(e.Row.DataItem, "IdQuizz").ToString());
             }

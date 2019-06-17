@@ -52,6 +52,7 @@
             <asp:Label ID="Label_manqueRep" runat="server" Text="Au moins l'une de vos questions n'a pas de bonne réponse" CssClass="text-danger" Visible="False"></asp:Label>
             <br />
             <asp:Button ID="Button_Creer_UV" runat="server" BorderStyle="None" CssClass="btn active" Text="Créer" OnClick="Button_Creer_UV_Click" />
+            <asp:Button ID="Button_Retour" runat="server" BorderStyle="None" CssClass="btn active" Text="Retour" OnClick="Button_Back" />
         </div>
     </div>
 

@@ -24,6 +24,7 @@ namespace LO54_Projet.QUIZZ
 
             if (!IsPostBack) // la page ne se recharge pas
             {
+                ViewState["RefUrl"] = Request.UrlReferrer.ToString();
                 successDiv.Visible = false;
                 init();
             }
@@ -94,6 +95,8 @@ namespace LO54_Projet.QUIZZ
             Label l = new Label();
             l.ID = "Label_Question_" + id;
             l.Text = "Enoncé " + (id + 1);
+            l.Font.Size = 14;
+            l.Font.Bold = true;
 
             // Ensuite
             // nouvelle textbox
@@ -166,7 +169,7 @@ namespace LO54_Projet.QUIZZ
             };
 
 
-            Literal hr = new Literal() { ID = "hr_" + id, Text = "<hr/>" };
+            Literal hr = new Literal() { ID = "hr_" + id, Text = "<hr size='1' color='black'/>" };
             panel_Questions_Container.Controls.Add(p);
             p.Controls.Add(l);
             p.Controls.Add(t);
@@ -206,6 +209,8 @@ namespace LO54_Projet.QUIZZ
             Label lbRep = new Label();
             //lbRep.ID = "label_Question_" + questionId + "_Reponse_" + answerId;
             lbRep.Text = "Réponse " + (answerId + 1);
+            lbRep.Font.Size = 12;
+            lbRep.Font.Bold = true;
 
             TextBox tRep = new TextBox();
             //tRep.Text = "Some random text just for fun rep" + answerId;
@@ -463,6 +468,12 @@ namespace LO54_Projet.QUIZZ
             QuizzName.Text = "";
             RadioButtonList_ChoixUV.ClearSelection();
             forcePostBack();
+        }
+
+        protected void Button_Back(object sender, EventArgs e)
+        {
+            string url = ViewState["RefUrl"] == null ? "listUV.aspx" : (string)ViewState["RefUrl"];
+            Response.Redirect(url, true);
         }
     }
 
