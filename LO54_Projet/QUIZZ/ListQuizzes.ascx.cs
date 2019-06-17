@@ -25,7 +25,7 @@ namespace LO54_Projet.Controllers
         protected void Page_Load(object sender, EventArgs e)
         {
             SqlDataSource_Projects.SelectCommand = "SELECT p.[IdQuizz], p.[Name], p.[idUv], uq.[Score],uq.[ScoreMax]"
-                                                   + " FROM [Quizzs] p INNER JOIN [User_Quizz] uq ON uq.QuizzId=p.IdQuizz"
+                                                   + " FROM [Quizzs] p LEFT OUTER JOIN [User_Quizz] uq ON uq.QuizzId=p.IdQuizz"
                                                    + " WHERE p.idUV = " + uvId;
         }
 
