@@ -68,10 +68,12 @@ namespace LO54_Projet.UVS
 
 
 
-                        var user = new ApplicationUser(nom, prenom) { UserName = prenom + " " + nom, Email = memail.Value }; ;
+                        var user = new ApplicationUser(nom, prenom) { UserName = prenom + " " + nom, Email = memail.Value };
+                        user.Role = "Student";
                         if (id.Users.FirstOrDefault(usr => usr.UserName == user.UserName) == null)
                         {
                             IdentityResult result = manager.Create(user, mpwd.Value);
+                            
                             if (result.Succeeded)
                             {
 
