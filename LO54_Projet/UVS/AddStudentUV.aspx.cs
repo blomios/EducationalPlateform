@@ -89,7 +89,7 @@ namespace LO54_Projet.UVS
 
 
                         var user = new ApplicationUser(nom, prenom) { UserName = prenom + " " + nom, Email = memail.Value };
-                        user.Role = "Student";
+                        user.Role = "Etud";
                         if (id.Users.FirstOrDefault(usr => usr.UserName == user.UserName) == null)
                         {
                             IdentityResult result = manager.Create(user, mpwd.Value);
@@ -108,10 +108,11 @@ namespace LO54_Projet.UVS
                         }
                         else
                         {
-                            ApplicationUser us = id.Users.FirstOrDefault(usr => usr.UserName == user.UserName);
-                            //if (!us.HasAccessToUV(uv.IdUv)){
-                            id.AddSharedUV(us.Id, selectedUv);
-                            //}
+                            ApplicationUser us = id.GetByEmailEager(user.Email);
+                            if (!us.HasAccessToUV(selectedUv))
+                            {
+                             id.AddSharedUV(us.Id, selectedUv);
+                            }
 
                         }
 
