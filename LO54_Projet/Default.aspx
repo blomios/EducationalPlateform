@@ -11,7 +11,7 @@
             <h2>Accéder au CRUD des UVs</h2>
             <p>
 
-            <asp:Button ID="Button1" runat="server" CssClass="btn-primary" OnClick="Button1_Click" Text="CRUD UVs" />
+            <asp:Button ID="Button1" runat="server" CssClass="btn btn-primary" OnClick="Button1_Click" Text="CRUD UVs" />
 
             </p>
         </div>
@@ -19,7 +19,7 @@
             <h2>Accéder au CRUD des QUIZZ</h2>
             <p>
 
-            <asp:Button ID="Button3" runat="server" CssClass="btn-primary" OnClick="Button3_Click" Text="CRUD QUIZZ" />
+            <asp:Button ID="Button3" runat="server" CssClass="btn btn-primary" OnClick="Button3_Click" Text="CRUD QUIZZ" />
 
             </p>
         </div>
@@ -27,7 +27,7 @@
             <h2>Accéder à l'ajout d'étudiants</h2>
             <p>
 
-            <asp:Button ID="Button2" runat="server" CssClass="btn-primary" OnClick="Button2_Click" Text="Ajout d'étudiants" />
+            <asp:Button ID="Button2" runat="server" CssClass="btn btn-primary" OnClick="Button2_Click" Text="Ajout d'étudiants" />
 
             </p>
         </div
