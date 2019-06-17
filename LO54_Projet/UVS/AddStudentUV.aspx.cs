@@ -32,13 +32,14 @@ namespace LO54_Projet.UVS
                 string nom = "";
                 //string email;
                 //string pwd;
+                System.IO.StreamReader file;
                 try
                 {
                     string filename = Path.GetFileName(FileUploadControl.FileName);
                     FileUploadControl.SaveAs(Server.MapPath("~/") + filename);
                     StatusLabel.Text = "Upload status: File uploaded!";
                     string line;
-                    System.IO.StreamReader file =
+                    file =
                     new System.IO.StreamReader(Server.MapPath("~/") + filename);
                     IdentityDb id = new IdentityDb();
                     Regex rxc = new Regex(@"^([^.]+)(?=[.])");
@@ -94,13 +95,12 @@ namespace LO54_Projet.UVS
                         }
 
                     }
-
-
-
+                    file.Close();
                 }
                 catch (Exception ex)
                 {
                     StatusLabel.Text = "Upload status: The file could not be uploaded. The following error occured: " + ex.Message;
+                    
                 }
 
 

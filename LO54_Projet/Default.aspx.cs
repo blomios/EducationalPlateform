@@ -28,7 +28,7 @@ namespace LO54_Projet
         protected void Page_Load(object sender, EventArgs e)
         {
             var context = new IdentityDb();
-            Button2.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Admin.ToString(); ;
+            Button2.Visible = context.GetUserRole(Context.User.Identity.GetUserId()) == CustomRoles.roles.Prof.ToString(); ;
         }
 
         protected void Button1_Click(object sender, EventArgs e)
